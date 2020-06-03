@@ -1,4 +1,0 @@
-R markdown file as the major delivery system
-R markdown assignments!
-R shiney app to demonstrate major concepts
-	Distribution and probabilities
