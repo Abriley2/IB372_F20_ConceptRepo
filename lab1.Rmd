@@ -1,0 +1,25 @@
+---
+title: "Statistics Lab"
+author: "Alex Riley"
+date: "6/3/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Descriptive statistics with iris
+
+```{r readIn}
+#read in the iris data set here
+
+```
+
+
+```{r histogramOfSepalLength}
+#draw histograms of sepal length with 5, 10, and 20 breaks
+
+```
+
+
