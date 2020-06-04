@@ -244,7 +244,7 @@ abline(v=3*y.stDev, col="green", lwd=2)
 abline(v=-3*y.stDev, col="green", lwd=2)
 ```
 
-![](Introduction_to_stats_files/figure-html/unnamed-chunk-1-1.png)<!-- -->
+![](Introduction_to_stats_files/figure-html/sdDemoPlots-1.png)<!-- -->
 
 ```r
 #medium dispersion
@@ -260,7 +260,7 @@ abline(v=3*y.stDev, col="green", lwd=2)
 abline(v=-3*y.stDev, col="green", lwd=2)
 ```
 
-![](Introduction_to_stats_files/figure-html/unnamed-chunk-1-2.png)<!-- -->
+![](Introduction_to_stats_files/figure-html/sdDemoPlots-2.png)<!-- -->
 
 ```r
 #most dispersion
@@ -276,15 +276,85 @@ abline(v=3*y.stDev, col="green", lwd=2)
 abline(v=-3*y.stDev, col="green", lwd=2)
 ```
 
-![](Introduction_to_stats_files/figure-html/unnamed-chunk-1-3.png)<!-- -->
+![](Introduction_to_stats_files/figure-html/sdDemoPlots-3.png)<!-- -->
 
-In addition to **range**, **standard deviation**, and **variance**,  it's also helpful to have an undersanding of **standard error**, while we won't spend much time on it here, standard error gives us a value to compare how well a sample mean estimates the population mean, it's value is $$\frac{s}{\sqrt{n}}$$  
-so the larger our sample the smaller it is, and the higher our standard deviation, the larger it is
+In addition to **range**, **standard deviation**, and **variance**,  it's also helpful to have an undersanding of **standard error**, while we won't spend much time on it here, standard error gives us a value to compare how well a sample mean estimates the population mean, it's value is 
+$$\frac{s}{\sqrt{n}}$$  
+so the larger our sample (n) the smaller our error is, and the higher our standard deviation (s), the larger it is
 
 ## Now with iris data!
 
-Let's take what we've learned about descriptive statistics, and apply them to our sepal length data for our iris species!
+Let's take what we've learned about descriptive statistics, and apply them to our sepal length data for our iris species!  
 
-First, let's get measures of central tendancy.
+First, let's get measures of central tendancy. We'll foregoe mode here because we can get all the information we need here from our mean and median, and R can calculate them with build in functions
+
+
+```r
+#mean
+mean(iris$Sepal.Width)
+```
+
+```
+## [1] 3.057333
+```
+
+```r
+#median
+median(iris$Sepal.Width)
+```
+
+```
+## [1] 3
+```
+
+You might be thinking, OH MY GOSH! OUR MEAN AND MEDIAN AREN'T EQUAL SO OUR DATA ISN'T NORMAL!!!!, HOW CAN WE USE ANY OF WHAT WE LEARN TODAY (spoiler alert, lots of what we learn today requires normal data) IF OUR DATA ISN'T NORMAL???, and you'd technically be right, having a mean and median that are different does mean our data is skewed, but the difference is so small it's effectively meaningless here, even with data much more skewed than this people offten assume normality, or if they can't will apply a function to their data to make it more normal, because a huge amount of the work done in statistics is on how to tell things about normal, or normalized data sets. 
+
+We won't spend much time on them, but you should also be aware that there are statistical tests and inferences we can make based on data that isn't normalized (called non-parametric statistics), or based on data that fit other distributions (poisson, chi-squared, etc.). We'll focus on normal, or almost normal data here, because it makes the statistical tests we run much more straightforward!
+
+Now that we know our data is approximately normal (we won't actaully run a formal test of this, we're basing it on the histogram and the approximately equal mean and median), we can move on to charecterize the dispersion of our data. 
+
+
+```r
+#range (min then max)
+range(iris$Sepal.Width)
+```
+
+```
+## [1] 2.0 4.4
+```
+
+```r
+#variance
+var(iris$Sepal.Width)
+```
+
+```
+## [1] 0.1899794
+```
+
+```r
+#standard deviation
+standardDev <- sd(iris$Sepal.Width)
+standardDev
+```
+
+```
+## [1] 0.4358663
+```
+
+```r
+#standardError (remember n=150 here)
+standardDev/sqrt(150)
+```
+
+```
+## [1] 0.03558833
+```
+
+Both the dispersion and centrality statistics of this data set are nice to have, but they don't tell us much on their own. Remember that we're looking at data on three different iris species! Move to the lab 1 R markdown file to find the data split up by species, and try some of this out for yourself!
+
+# Inferential statistics
+
+
 
 # Detailed list of learning outcomes
