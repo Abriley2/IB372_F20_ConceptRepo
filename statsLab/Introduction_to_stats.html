@@ -480,7 +480,8 @@ abline(v=xMed, col=&quot;blue&quot;, lwd=2)</code></pre>
 <div id="measures-of-dispersion" class="section level2">
 <h2>Measures of dispersion</h2>
 <p>While we can tell a lot from the mean, median, and mode of a data set, it’s important to remember that they don’t tell us everything about how our data is distributed across its <strong>range</strong> - <span class="math inline">\(x_{max}-x_{min}\)</span>, for example, these three plots all have the same exact mean, median, and mode, but if you got these three data sets, you’d know something was different between them</p>
-<pre class="r"><code>#least dispersion
+<pre class="r"><code>#these are functions we use to randomly sample, and plot random normal data, don&#39;t worry about these functions for now, unless you want to! in which case, feel free to worry about them!
+#least dispersion
 x &lt;- seq(-10, 10, length=1000)
 y &lt;- dnorm(x, mean=0, sd=.75)
 plot(x, y, type=&quot;l&quot;, lwd=1)</code></pre>
@@ -558,6 +559,7 @@ range(iris$Sepal.Width)</code></pre>
 var(iris$Sepal.Width)</code></pre>
 <pre><code>## [1] 0.1899794</code></pre>
 <pre class="r"><code>#standard deviation
+#sd gives us standard deviation, but we assign it to a variable here so we can calculate standard error
 standardDev &lt;- sd(iris$Sepal.Width)
 standardDev</code></pre>
 <pre><code>## [1] 0.4358663</code></pre>

@@ -195,6 +195,7 @@ While we can tell a lot from the mean, median, and mode of a data set, it's impo
 
 
 ```r
+#these are functions we use to randomly sample, and plot random normal data, don't worry about these functions for now, unless you want to! in which case, feel free to worry about them!
 #least dispersion
 x <- seq(-10, 10, length=1000)
 y <- dnorm(x, mean=0, sd=.75)
@@ -334,6 +335,7 @@ var(iris$Sepal.Width)
 
 ```r
 #standard deviation
+#sd gives us standard deviation, but we assign it to a variable here so we can calculate standard error
 standardDev <- sd(iris$Sepal.Width)
 standardDev
 ```

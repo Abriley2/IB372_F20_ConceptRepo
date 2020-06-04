@@ -11,15 +11,113 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Descriptive statistics with iris
 
-```{r readIn}
-#read in the iris data set here
+Bellow, I'll pull out data on all indiviauls of the species Iris setosa, and assign them to the data frame setosa (a data frame is one way R stores data, think of it like a spreadsheet, but instead of clicking on columns, we use the $ to tell R what column we want to look at)
+```{r dataDevisionExample}
+#first we read in the iris data set, as shown before
+data("iris")
+#This is one way to devide up data in R
+#Reading from left to right, we see the assignment (<-) opporator, sending the output of our code to the variable setosa
+#Then we see the function as.data.frame, this just tells R to make whatever is inside those parentesies into a data frame
+#Inside that we tell R what data from iris we want to be in our data frame
+#In this case, we want all the rows of the data set where species == setosa
+#NOTE that we use the double equals sign (==), which tests if something is equal, the single equals sign (=) in R is the same as the assignment opporator (<-) I just like using a nifty little arrow
+#ALSO NOTE that we have to put setosa in quotes, this is so that R knows we're looking talking about a word (string is the official variable type!) as opposed to a variable calles setosa (don't worry too much about this right now, just use quotes in your code bellow!)
+#Finally we have a commma after our test, that's because of the way R accesses data in a table or data frame,
+#The way we access data is dataSet[rows,columns], so we want the rows where species==setosa, but we leave out specifying columns,
+#Which just tells R we want all the columns for those rows
+#if this is confusing don't worry, it'll get easier, and you're about to get to practice!
+setosa <- as.data.frame(iris[iris$Species == "setosa",])
+```
+
+In the code chunk bellow, split up the data further by creating data frames for the other two species of iris in our data set, versicolor, and virginica
+
+```{r splitData}
+#your code goes here!
+#create the data frame versicolor
+
+#create the data frame virginica
 
 ```
 
+Now let's get an idea of what the data for each species looks like in a histogram, here we'll stick with sepal width (sepal.width), draw a histogram for each species in the chunk bellow
 
-```{r histogramOfSepalLength}
-#draw histograms of sepal length with 5, 10, and 20 breaks
+```{r histogramOfSepalWidth}
+#draw histograms of sepal width for each species, include a title for each, by inclucing main = "hisogram of *species name* sepal width", see the code chunk titled normalData in the introduction_to_stats file for an example 
+#to run your code, either click the green triangle in the top right corner of this chunk, or click on your code and hit ctrl+shift+enter
+
+
 
 ```
 
+In the space bellow answer, do the distributions of each species sepal widths look the same? If not, describe qualitatively what the differences are between them (both centrality and dispersion).
 
+
+
+
+Now let's get a more quantiative idea of how these species compare, in the code chunks bellow calculate the following for the species corrosponding to the chunk title,
+*mean
+*median
+*range
+*variance
+*standard deviation
+
+For one of the species, also draw a histogram with vertical lines at the mean, and median sepal width, make sure to include a title! 
+For an example of how to draw multiple vertical lines in a plot, check out the sdDemonstration code chunk in the introduction file
+
+```{r setosa}
+#mean
+
+#median
+
+#range
+
+#variance
+
+#standard deviation
+
+#hist if for this species
+
+```
+
+```{r versicolor}
+#mean
+
+#median
+
+#range
+
+#variance
+
+#standard deviation
+
+#hist if for this species
+
+```
+
+```{r virginica}
+#mean
+
+#median
+
+#range
+
+#variance
+
+#standard deviation
+
+#hist if for this species
+
+```
+
+Fill in the following,
+
+Species with the largest average sepal width:  
+Species with the largest range in sepal width:  
+Species with the most skew (largest difference between mean and median):  
+
+Finally, do the results of these comparisons align with the conclusions you visual inspecition of the histograms of each species? If not, what did you get right? Wrong? If so, feel free to just say yes!  
+
+
+An important note about these results is that we can tell what the differences between these species are based on these statistics, but what they don't tell us is, how meaningful are these differences? Is thee a real difference in sepal width between these species, or did we just happen to randomly select individuals with different distributions? This is whee inferential statistics come in! Go back to the introduction to statistics file, and read up on how to rigorously ask these questions!
+
+# Inferential statistics
