@@ -879,5 +879,67 @@ So here we can't reject our null hypothesis. Think about what that means, the nu
 
 Now take what you know about chi-squared tests and do the corrosponding section of lab 1!
 
-## Corroletion
+## Correlation
 
+I'm going to assume most of you have heard of correlation's before, so I won't spend a lot of time motivating this one. Generally a correlation measures the strength of the relationship between two variables, ie, when X gets larger does Y consistently get larger? Smaller? We measure the strenght of that relationship using correlation coefficient, for this we'll focus on one specifically called **Pearson's correlation coefficient**, but you should know that there are other methods out there! We almost always represent correlation coefficients with the term **r** (note that it's lower case!).
+
+We calculate r as follows: $$r=\frac{\sum{xy}}{\sqrt{\sum{x^2}\sum{y^2}}}$$
+
+Where an r of 1 means there's a perfect positive correlation (when x increases, y ALWAYS increases by an amount that is exactly proportional), and r of 0 means there's no correlation, and an r of -1 means that there's a perfect negative correlation.  
+
+### it's Cool to be Cautious when Calculating Correlations
+
+There are a few things to be careful of when you're calculating and using correlations! 
+First off remember, a correlation DOES NOT IMPLY CAUSATION! This just means that just because two things have a high r value, does not mean that one causes the other! A classic example is that drownings are tightly correlated with ice cream consumption per capita every year, but only because more people are around water and eating ice cream durring the summer! There are some great sights for this, for example the web site https://www.tylervigen.com/spurious-correlations points out that there's an omminous r of 0.666 between drownings by falling into a pool in a year with the number of films Nick Cage has appeard in that year. It's possible that it's people staring at tvs, distracted while walking next to their pool thinking "is that Nick Cage?", but it's more likely what's called a spurious correlation, meaning there's no real relationship between the two variables. Make sure that you never assume causation for a correlation, and make sure the ones you believe make some sense!  
+
+Another factor to be cautious of when calculating correlations is that all correlations with the methods we're using are linear correlations. While this does not sound super important, you might be fitting a relationship that doesn't make sense to your data, and drawing the wrong conclusions from it! Always look at your data! Plot it! Stare at it!  
+
+Finally, related to the above point, a correlation driven by an outlier is quantitatively the same as a correlation driven by a real relationship, always look for outlier (points way outside the rest of your data, or points that just don't make any sense) before you run a correlation. Just to reitterate - Always look at your data! Plot it! Stare at it!  
+
+Now let's get back to that sweet sweet iris data! Let's look for a correlation between sepal length and sepal width. It seems like longer petals could be wider, as they might just be larger overall, but let's take a closer look!
+
+
+```r
+#first let's look at our data on a plot
+plot(iris$Sepal.Length, iris$Sepal.Width)
+```
+
+![](Introduction_to_stats_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
+
+First it's important to note that we don't see any obvious outliers, or clear non-linear relationships. Then it's interesting to note, there isn't an obvious, strong relationship, so if we do get a high r value we know something is up we're not seeing.  
+
+Also note, we can run a simple correlation to just get an r value, or we can run a correlation test, which will also list off degrees of freedom and a significance value. Both the r and the significance value are useful so I would recommend using the "cor.test" function over the simple cor function.
+
+
+```r
+#now let's run our actual correlation test
+cor(iris$Sepal.Length, iris$Sepal.Width)
+```
+
+```
+## [1] -0.1175698
+```
+
+```r
+cor.test(iris$Sepal.Length, iris$Sepal.Width)
+```
+
+```
+## 
+## 	Pearson's product-moment correlation
+## 
+## data:  iris$Sepal.Length and iris$Sepal.Width
+## t = -1.4403, df = 148, p-value = 0.1519
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  -0.27269325  0.04351158
+## sample estimates:
+##        cor 
+## -0.1175698
+```
+
+We see that not only was there not a strong, significant positive relationship between sepal length and width, there was even a (non-significant) slight negative relationship! So we see here that sepals on our iris species seem to be either long, or wide, not just larger or smaller! Aren't stat's awesome??
+
+As usual, move back to the lab 1 notebook and come back when you've worked through correlations!
+
+## Regression
