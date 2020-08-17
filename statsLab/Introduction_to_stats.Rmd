@@ -10,6 +10,7 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 set.seed(100)
+library(ggplot2)
 ```
 
 # Introduction
@@ -148,7 +149,7 @@ hist(x, main = "Normal data with Median")
 abline(v=xMed, col="blue", lwd=2)
 ```
 
-While measures of central tendancy don't tell us much about how our data are actually distributed, they can tell us if our data is **skewed**, basically just weather or not our data are perfectly semetrical. If our **mean, median, and mode are all equal**, then we know our data are symetrical and **not skewed** in the negative or positive direction, if our **mean is lower than our median and mode** then we call our data **negatively skewed**, and if our **mean is higher than our median and mode**, we say our data is **positively skewed**, don't worry too much about knowing the specifics of each of these terms, just know that not all data are symetrical, and if they aren't we say they're skewed.
+While measures of central tendancy don't tell us much about how our data are actually distributed, they can tell us if our data is **skewed**, basically just whether or not our data are perfectly semetrical. If our **mean, median, and mode are all equal**, then we know our data are symetrical and **not skewed** in the negative or positive direction, if our **mean is lower than our median and mode** then we call our data **negatively skewed**, and if our **mean is higher than our median and mode**, we say our data is **positively skewed**, don't worry too much about knowing the specifics of each of these terms, just know that not all data are symetrical, and if they aren't we say they're skewed.
 
 That's all the measures of central tendancy you need to know, so now let's move on to measures of dispersion
 
@@ -257,10 +258,275 @@ standardDev
 standardDev/sqrt(150)
 ```
 
-Both the dispersion and centrality statistics of this data set are nice to have, but they don't tell us much on their own. Remember that we're looking at data on three different iris species! Move to the lab 1 R markdown file to find the data split up by species, and try some of this out for yourself!
+Both the dispersion and centrality statistics of this data set are nice to have, but they don't let us answer any particularly interesting questions on their own. Remember that we're looking at data on three different iris species! Move to the lab 1 R markdown file to find the data split up by species, and try some of this out for yourself! After you finish that, come back here and we'll start to answer some questions with data!
 
 # Inferential statistics
 
+## Inference
+Welcome back! Now that we've got a grasp on how we can get an idea of what our data looks like, we're going to dive into how we can actually draw conclusions about questions we're interested in based on that data, using a set of tools called **inferential statistics**.  
+
+**Inference** is the process by which we draw conclusions about an unknown based on evidence or prior experience. As you might expect, **inferential statistics** is a set of tools we use to draw conclusions about a population based on a sampled from that population. Here is a great time to remember that all of these tools assume our sample is **representative** of our population, if we sample in a way that biases the data, our conclusions can be wrong or misleading with regards to the population as a whole.  
+
+All inferential statistics are build to test a set of hypotheses, we refer to these as a **null** hypothesis, referred to as $H_0$ which states that the thing we're testing doesn't have an impact and an **alternative hypothesis**, referred to as $H_A$, that what we're testing DOES have an impact. You've probably heard these terms before, but in case you haven't don't worry, they'll get clearer with time!  
+
+## Significance and some words of warning!
+
+Inferential statistics allow us to test the **signifigance** of a pattern we see in our data given our null and alternative hypotheses. When folks talk about the signifigance of a result, they're really talking about how likely you would be to see the pattern in your data under the expectations of the null hypothesis. We call this probability a **p-value**, so for example, if p = 0.1, there's a 10% chance you'd get your result under the expectations of your null hypothesis. While it's not always clear how low a p-value needs to be to indicate a meaningful pattern in your data, a cutoff of 0.05, or a 5% chance of getting your data randomly under the null hypotheis, is generally used in scientific litterature.  
+
+There are years of courses you could take on how we arive at specific p-values, if you'd like one I'd recommend prability theory over in the math department, and I'll talk a bit about how we get to them for the various tests we discuss, but we'll largely focus on building an intuition around these values and what they might mean for the science we're doing.  
+
+Before we move on there are a few notes of caution about the things I just told you. First and foremost is to remember that **a p-value is a prability**, we cannot say for sure that our alternative, or null hypotheses are 100% true. Instead we say that we either **fail to reject the null hypothesis**, or that our results **do not support our alternative hypothesis**, remember we're using a limited data set with only one null hypothesis, it's entirely possible we either just didn't collect enough data to show our alternative hypothesis, or that some other process that we didn't test for is at work in our data, stats is all about bet hedging.  
+
+Because there's always a chance our test gives us the incorrect result, we've got terms to identify when we either incorrectly support or reject $H_0$. **Type 1 error** is when we reject $H_0$ when $H_0$ is actually true (false positive). The probability of a type 1 error is denoted $\alpha$ and reffered to as the significance level of the test (not to be confused with the significance of our result). Alternatively **Type 2 error** is when we accept $H_0$, when $H_0$ is really false (false negative). The probability of type 2 error is denoted as $\beta$, and $1-\beta$ is reffered to as the **power** of a test. 
+
+Finally (and then I promise we'll actaully get into some tests!) another important note is that your data **have to exactly, or almost exactly, meet the assumptions of the test you're doing!** If you're running a test that has the null expectation that your data are normal for example, on data that is nowhere near normal, then it's easy to get a significant result that really just means you ran the wrong test! Remember, in the background stats is just math, once you run a test all your computer is doing is math, it's up to you to make sure you check to see that the result of that math will be meaningful! There's a famous expression in stats, garbage in garbage out, if your data is bad or doesn't meet the assumptions of a test, then you'll get garbage out!  
+
+## T-Tests  
+
+A t-test is one of the most straight forward statistical tests, while also being one of the most useful in a lot of the contexts we'll be using stats in, so we'll start there!  
+A **t-test** takes a set of normal data and determines how statistically significant the mean of that data set is from either a pre-defined value (one sample t-test), or the mean of another normal data set (two sample t-test).  
+I'm a big fan of the Ms.Frizzle (any magic school buss fans out there?) way of learning, so before we dive too deep into the details of the t-test, lets dive into a t-test in R and work from there!  
 
 
-# Detailed list of learning outcomes
+### t-test example
+
+We'll start out using the iris data we've been working with, let's do somee work to see if a few of the measured traits on our iris data varry between specis. I won't annotate the first few lines breaking up the data, as they miror code you'll have already written in the lab 1 
+
+First lets look at our data and see if it meets our expectations, and determine what we think is the likely outcome of our tests
+```{r}
+setosa <- as.data.frame(iris[iris$Species == "setosa",])
+versicolor <- as.data.frame(iris[iris$Species == "versicolor",])
+virginica <- as.data.frame(iris[iris$Species == "virginica",])
+
+#first lets look at the Sepal length in each species and see if they're (approximately) normally distrubted
+setosaSepLenHist <- hist(setosa$Sepal.Length, main="Setosa Sepal Length")
+versicolorSepLenHist <- hist(versicolor$Sepal.Length, main="Versicolor Sepal Length")
+virginicaSepLenHist <- hist(virginica$Sepal.Length, main="Virginica Sepal Length")
+
+setosaSepLenHist
+versicolorSepLenHist
+virginicaSepLenHist
+
+#While they clearly aren't perfectly normal, real data we look at in biology is rarely
+#exactly normal, we'll treat this data as normal for these tests
+
+#We can also look at all three data sets colored differently to see if the data look
+#different next to each other, for some intuition about the results of our test
+#for that we'll use a package called ggplot, with the original iris data frame, grouping by species
+#Also note that this isn't a histogram, it's something called a density plot, but for this particular exercise we can use it interchangably
+
+ggplot(iris, aes(Sepal.Length, fill=Species)) + geom_density(alpha=0.2)
+```
+
+So we see that our data looks (approximately) normal, and that there appear to be differences between the data sepal length between species, but is the differences just the effects of random sampling differences? Or is it meaningful? For that we'll run our first T-test.  
+
+Every time you run a statistical test it's important to think of the null and alternate hypotheses for the tests your running. Let's take the test between Iris setosa and Iris virginica (setosa and verginica moving forward).  
+
+Our null hypothesis ($H_0$), is that there is no difference between sepal lengths of flowers from setosa and those from verginica. On the other hand our alternative hypothesis ($H_A$), is that there IS a difference between sepal lengths of flowers from setosa and those from verginica. So let's run that test and spend some time with the output!
+
+```{r}
+t.test(setosa$Sepal.Length, versicolor$Sepal.Length, alternative = "two.sided", var.equal = TRUE)
+```
+
+Before we spend any time with the code we used to run our t.test, let's look at the output. We're going to focus on the three variables our test output in the second row: t, df, and p-value.  
+
+#### t
+
+Starting with the t-statistic, this is the actual output of the equation our t-test runs in the background (listed bellow). In the olden days, as well as in previous itterations of this class, you would do this test by hand, and then use what's called a t-table to look up the value of your t-statistic with respect to the number of degrees of freedom (df) and the significance value you were looking to test at. If your values ABSOLUTE VALUE (so for our current value, about 10.5) was greater than the one listed in the table, then your result is significant at that level, if not you could move to a lower significance threshold and see where your value landed. Because this is all sortof difficult to describe, I'll link a t-table here that you can check out at your leasure.  
+  
+https://www.sjsu.edu/faculty/gerstman/StatPrimer/t-table.pdf  
+
+#### df
+  
+Moving on to our degrees of freedom (df), this is a tougher one to grasp, so I'll give a brief description, but I recommend that as you move on in your statistics education you look up a few guides and intuitive descriptions of what this means.  
+
+Generally, degrees of freedom signify how many variables that we're looking at are free to change, given any information that's coded into the distribution your test is using, in the case of a t-distribution the only piece of information that comes from our data is the mean of the distribution for each sample (don't stress to much about this point), so for both setosa and versicolor all but one of the values could change freely, but to keep the mean the same one value will always have to reflect those changes to keep the mean the same. If you want to understand this a little better, try taking 10 random values and get the mean of those values, then replace 9 of those with a new set of random numbers, if you also change the 10th at random, the mean is likely to change, but if the 10th is adjusted propperly, then the mean can stay the same.   
+
+For a standard two sample t-test, the number of degrees of freedom is the number of samples in the first group, plus the number in the second, minus 2 (${n_1}+{n_2}-2$), as desribed above. because we have 50 samples for each species, that makes sense here!   
+
+#### p-value
+
+Our p-value is as described above, the chance that we'd get this result by random chance, and depends on our t-statistic, along with our degrees of freedom, our p-value is really low, meaning out t-statistic is high given our degrees of freedom, and that our results are really likely to represent a meaningful difference!  
+
+Now let's dive into the actual code we used to run our t-tests.
+
+#### One tailed vs two-tailed  
+
+You might have noticed in the line encoding this t-test, alternative="two.sided", this is because the structure of our alternative hypothesis is important for the significance of our result. Here, our decision was to just test the idea that these species were different, but let's say that there we were instead looking for a well documented pattern, showing that virginica had much smaller sepals than setosa, and rather than just looking at our data, we ran a t-test first. The options for alternative here are "two.sided"; meaning these are just different, "less"; meaning the first group is less than the second, or "greater";meaning the first group has a greater mean than the second.
+
+```{r}
+t.test(setosa$Sepal.Length, versicolor$Sepal.Length, alternative = "greater", var.equal = TRUE)
+```
+
+Here we see that while our t-stat is the same, our p-value is 1, this is because of the structure of a t-distribution, shown bellow.
+
+```{r}
+plot(function(x) dt(x, 98), -11,11, main="t-distribution with 98 degrees of freedom")
+```
+ 
+With these distributions, the area under the curve (the integral for those who are as stoked about math as they should be!) represents the probability of all possible events (1). When we run a t-test that's two sided, specifying just that our values are different, the actual p value represents the area under the curve both bellow the negative value the absolute value of our t-stat, and above the absolut value itself. If you recall, our t-statistic is about -10.5, so if you look at this figure you can see theres almost nothing in the described area! So our p value is very low! This is called a two-tailed t-test, because we look at both tails of the distribution.  
+
+Alternatively, if we specify greater as our alternative hypothesis, as we did above, the sign of our t-statistic does matter, and we take the value above our t-statistic. Again looking at the plot up above it's clear that almost all of the area under the curve is above -10.5, so there's a probability of almost 1 (100%) that our data does NOT meaninfully represent the pattern in our alternative hypothesis, which makes sense looking at our data!  
+
+If we specify less, our the t-test does the opposite, which generally would halve our p-value, but in this case our p-value is so low the computer doesn't try to represent that number and just says it's lower than the same REALLY low number. These are examples of one-tailed t-tests, which just look at one tail of the distribution.  
+
+```{r}
+t.test(setosa$Sepal.Length, versicolor$Sepal.Length, alternative = "less", var.equal = TRUE)
+```
+
+Generally you should default to a two-tailed t-test, and only use a one tailed when you have a REALLY strong reason to assume theres a direction to the relationship you're looking at (ie. plants with more light will grow larger etc.).
+
+#### Equal varience?
+
+The other piece of the code we have here is var.equal=TRUE. This just means we're telling the t-test to assume the varience of our two data sets is equal. Looking at our data, this may work, but it's generally not a totally safe assumption. The main reason we used it here is because if we don't assume it, R will use a lower, more stringent number of degrees of freedom to account for the unequal varience. We won't go into a lot of details on this, but I'll run it bellow with that as FALSE, which is the default, and that's the version you should use going forward.
+
+```{r}
+t.test(setosa$Sepal.Length, versicolor$Sepal.Length, alternative = "less", var.equal = FALSE)
+```
+
+That covers the baics of t-tests we'll go over here, go into the lab 1 notebook and try some for yourself!
+
+## ANOVA
+So we've now covered how to test for a significant difference between two groups at a time, or between one group and a theoretical distribution, but what if we have more than two groups? While the obvious answer might seem to be that we should just run a bunch of t-tests and look at their flat p-values, there are actually some major flaws with that strategy.  
+
+Think back to what a p-value is, the probability that random sampling from whatever the hypothesised distribution of our null-hypothesis represents can account for the patterns in our data. Now think of a data set where our samples are grouped into 10 groups, that's 45 comparsisons (10 choose 2, ${10\choose2}$). If we use a p-value cutoff of 0.05, then even if all of our comparisons are significant, with a 1 in 20 chance that they're actually just different due to chance, then on average at least 2 of those comparisons will be false positives.  
+
+There are several methods to account for this, a few of which I'll breifly touch on at the end of this section, but the main one we're going to focus on is called an ANOVA, or an ANalysis Of Variance. 
+
+### What's an ANOVA?
+
+*A quick note up top, anova's are a HUGE topic! There are entire courses on how anovas work and all the variation in them, we'll cover the basics of an archatypal anova, but if you see one that does something diffent from what I'm describing, or it feels like theres more to the story than I'm describing here, it's because these things can get really wild really fast! Which is what makes them such a cool tool!*
+
+An ANOVA tests for differences between groups using groupings broken into factors and levels, which I'll describe in just a second. The null hypothesis of an ANOVA is that differences between groupings (and sometimes the interaction between those groupings!) do not account for a significant amount of the differences between individuals. That's sortof a lot of word salad, and it's a lot easier to understand in terms of the alternative hypothesis, which is, broadly, just that individuals from different groups will be different.  
+
+### Factors and levels
+
+As I mentioned above, AMOVAs use groupings of individuals based on **factors** and **levels**.  
+**Factors** are are ways that we can group individuals, and **levels** are just the actual groups within those factors. So for example, if you've got data on the fecundity (how many babies they have) of different fish species that were all grown in different types of habitat types, you've got two **factors**; fish species, and habitat type, with multiple **levels** within each of those factors. For example, within fish species you might have 5 different species, and within habitat type you might have three differnt types of rivers.
+
+### How does an ANOVA work?
+
+
+An ANOVA works differently from a t-test in that it's breaking down the variation within and between groups. This can be a tough concept, so lets run through it with our iris data, describing the conceptual steps of an ANOVA.
+
+First an ANOVA calculates a value called the totall sum of squares ($SST$). This value represents the the sum of squared deviation from the mean (just distance from the mean) of all the values combined.
+
+```{r}
+#plotting our iris sepal lengh, colored by species
+#pch denotes the point shape
+#ab line adds a line where we want it
+plot(iris$Sepal.Length, col=iris$Species, pch=20)
+abline(h=mean(iris$Sepal.Length))
+```
+
+Next and ANOVA calculates the error variability ($SSE$), the sum of all squared deviation from the LEVEL MEAN, so the mean just within the level of interest. So in our iris case, individuals within virginica would be compared to the virginica mean, setosa to the setosa mean, etc etc. here's the same plot, but with color coated means for each species!
+
+```{r}
+#plotting our iris sepal lengh, colored by species
+#pch denotes the point shape
+#ab line adds a line where we want it
+plot(iris$Sepal.Length, col=iris$Species, pch=20)
+abline(h=mean(setosa$Sepal.Length))
+abline(h=mean(versicolor$Sepal.Length), col="red")
+abline(h=mean(virginica$Sepal.Length), col="green")
+```
+
+Note that $SST$ will always be greater than or equal to $SSE$, with the remaining variance being from within the factor itself ($SSF$), and so $$SST=SSE+SSF$$.  
+
+That's not an equation you necessarily have to know, but just understand that an ANOVA uses this to break down the variaition that each level accounts for, to understand whether the differences between those levels is meaningful.  
+
+The way this works is by deving the sum of squares at a given level ($SSE/T/F$) by the degrees of freedom for that sum of squares, to the compute what's called the mean square variability ($MS$). Then it devides the $MS$ for the given factor, by the $MS$ for our error term to get a statistic called F that you then compare to table similar to the one described above. This is all fairly complicated to see written out, so lets run an example on our iris data.
+```{r}
+#first we run our anova using the aov function
+#we specify the formula for our ANOVA using the syntax (dependent.variable ~ explanaotry.variable(s))
+#We use the summary function because, as you can see, the aov output itself doesn't give us a p value (Pr(>F) in the summary)
+
+iris.aov <- aov(Sepal.Length~Species, data=iris)
+print("*******aov function output **********")
+iris.aov
+print("******* summary output ****")
+summary(iris.aov)
+```
+The summary output above gives us everything we need to understand the ANOVA. We can see for our species level the sum of squares, the $MS$ value, the and the degrees of freedom, similarly we see it for our error term (Residuals), along with our F and p values! To make sure you understand how to get to that F statistic from our sum of squares and degrees of freedom, work through it with a pen and paper! (this will be in the lab for this section!)
+
+### A few more A-Note-VAs (notes on ANOVAs, I'm kindof a fun TA?)
+
+So what we've just done is basically the simplest version of an ANOVA, but note that we can also have multiple explanatory variables (factors), which can interact, or be nested within one-another.  
+
+Interacting terms basically just mean you've got two factors that interact (pretty straight forward right??). Think wayyy back to the top of this section where I talked about fish species and habbitats. It's entirely possible that a given habbitat will have a different impact on fish of different species, so not only could fish and species explain some of the variation, fish species combined with a given habitat can have an impact. The way we denote that in an r formula would be (fecundity ~ species + habitat + species*habitat), because we want to look at the effect of species, plus the effect of habitat, plus the effect of species combined with the habitat it's in.  
+
+Another thing to be aware of is a relationship called nesting. Nesting just means that one factor subdevides another factor, so it should be considered with subsets of another factor. For example, lets say that for each of the fish species we were considering, we have three genotypes. If for example we have 4 fish species, if we just include genotype as its own fully indipendent factor, then we're deviding out data up into 12 levels that are really not indipendent of our species variable. Instead we would say that genotype is a nested variable within species. That's designated in R as follows (fecundity ~ species/genotype), and will better split up variance with genotype within habitat.  
+
+These relationships can get complex as you design experiments, so think about them as you move on with your scientific careers! Not accounting for an interaction or a nesting relationship can be the difference between a meaningful result and junk science! Also I still get tripped up on this stuff, as does every other person I know who uses these so don't be affraid to ask for help!  
+
+### Other ways to account for multiple groups
+
+As promised here are a couple of other ways to work with multiple groups your testing between. I won't go into detail on either, so do some super fun googling if you're interested! Highly recommended!  
+
+First you can run a t-test with a lower significance cutoff, there are several methods for this, and they're offten reffered to as **multiple hypothesis corrections**. This lessens the chance that you're calling a non significant difference significant.
+
+The other methods I'll mention is something called a tukey test. A tuky test works very similar to running a t-test on all comparisons, and will give a pairwise, corrected p-value, for all comparisons.  
+
+The draw to both of these methods is that they give you specific p values for comparisons, while an ANOVA will just tell you that the grouping makes a difference. I would recommend always running an ANOVA first though, because otherwise you'll be searching through a massive list of p-values when it's possible none are significant in the first place. An ANOVA can save you that trouble!
+
+Now head back to the lab 1 notebook and do the ANOVA section of the lab!
+
+## Chi-Squared 
+
+Next we'll cover a chi-squared ($\chi^2$) test. We're going to go a bit less in depth here having covered the t-test and AMOVAs in a lot of detail, but generally the way the test works is the same, altho the test itself is very different. You get a test statistic based on your data which is then compared to a chi-squared distribution via a values table to understand how the data stacks up against your hypotheses.  
+
+A chi-squared test is used to tell whether a set of count data differs from a null expectation, which will generally just that all groups have a proportional number of individuals (this will be clearer in a second). The number of degrees of freedom for a chi-squared test is either the number of columns in your contingency table minus 1 ($c-1$), or the following, where r represents rows, and c representes columns: $$df=(r-1)(c-1)$$  
+
+Furthermore, the function for the chi squared statistic is $$\sum{\frac{(observed-expected)^2}{expected}}$$  
+over all values in your contingency table.  
+
+To understand how we get our expected values, lets look at some data from an R package called MASS on a survey testing if peoples smoking habits (rows), were related to their exercise habits
+
+```{r}
+#load the package
+library(MASS)
+data <- table(survey$Smoke, survey$Exer)
+data
+```
+
+So here we see our observed values, but how do we get our expected values? To do that we need the total number of individuals, along with the proportion of those individuals in each row and column.
+
+```{r}
+total <- sum(data)
+total
+rowSums(data)/total
+colSums(data)/total
+```
+
+So above we have the proportions for each row (the fraction of the total that row accounts for, the (number of individuals in that row)/(total number of individuals)), and the same for each column. To get our expected proportion we just multiply these values for a given cell, and then multiply the value by the total number of individuals!
+
+Bellow is an example value for heavy smokers who exercie fequently.
+
+```{r}
+expectedHeavyFreq <- 236*0.0466*0.487
+expectedHeavyFreq
+```
+
+Let's also get a value for our degrees of freedom, just for practice. Remember we have 4 rows, and 3 columns.
+
+```{r}
+r <- 4
+c <- 3
+df <- (r-1)*(c-1)
+df
+```
+
+Let's now go ahead and run a chi squared test in R and see if our data differ from our null expectation!
+
+```{r}
+chisq.test(data)
+```
+
+So our p-value is 0.4828, but what does that mean? It's easy to just say "that our data is not significantly different from our null expectation!" But we're scientists not statistictians! I'll sometimes ask you to you to interperate a test, and unless I'm really specific I'm always asking for a real, biological interperatation, you've been warned!  
+
+So here we can't reject our null hypothesis. Think about what that means, the number of individuals for every group (for example occasional smokers who exercise sometimes) is about what it would be if you just took the proportion of people who smoke occasionally and multiplied it by the proportion of people who exercise sometimes. Generally speaking, it means that these two groupings don't seem to have a meaningful effect on each other, so how much someone exercises doesn't seem to have an impact on how much they smoke, or vica-verca.  
+
+Now take what you know about chi-squared tests and do the corrosponding section of lab 1!
+
+## Corroletion
+
