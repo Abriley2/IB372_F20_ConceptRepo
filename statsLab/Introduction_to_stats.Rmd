@@ -568,3 +568,40 @@ As usual, move back to the lab 1 notebook and come back when you've worked throu
 
 ## Regression
 
+Regressions are really similar to correlations, but with one important difference, a regression does imply a causitive relationship, because we are actively fitting our dependent variable as a function of our independent variable. This is super helpful when you have a clear relationship in mind, but note you're still driving, if you put in a relationship that doen't actually make any sense, but a regression fits, you'll get a meaningless significant result!  
+
+For this lab we're going to focus on linear regressions, but note that just about any relationship you can have between two mathematical variables you can fit as a regression (exponential, logistic, logarithmic, trigonometic, etc.), like ANOVAs there are entire courses on regression, so there's lots you can dive into if you get excited about them!  
+
+The form of linear regression is as follows: $$Y = a + bX + \epsilon$$  
+where Y is our dependent variable, a and b are our regression coefficients (what we're looking to find), X is our independent variable, and $\epsilon$ is our residual error, or just anything not accounted for by our regression coeffecients.  
+
+We won't get into the details of how the computer actually calculates a and b, but if you're interested it's generally in the field of machine learning, offten with a technique called gradient decent. All you need to know is that the computer finds an a and b the minimizes the squared distance of data points from the regression line.  
+
+With regressions we use a value called $R^2$ to undertand how good the fit of our relationship to our data is, which is called the coefficient of variation. $R^2$ represents the propotion of variation in Y explained by the regression, so it varries from 0 to 1.  
+
+Note that in a simple linear regression $R^2$ is the same as the pearson correlation coefficient (r) squared, but that this is a special case and you should always make sure that you're using the appropriate test, and the appropriate terms. This will make life much easier when some day you need to model more complex relationships!
+
+It's also useful to note the null and alternative hypotheses of a regression. $H_0$ just states that b=0 (the line is flat, there is no meaningful relationship), whereas $H_A$ is that the line is not flat, b does not equal 0.  
+
+Finally, before we get into our last (!!!) statistical example for this lab, a word of warning. A regression will give you an equation that you could, in theory use with whatever values you want, which seems really useful! But always be cautious using that relationship to make estimates outside the range of the data you collected. The relationship may be different for values much larger or smaller than yours, so always be careful making big assumptions!  
+
+Now lets dive into a data set built into R that should be good for this course! We'll look at the "trees" data set, which gives data on the dimensions of 31 felled black chery trees. Let's say our alternative hypothesis is that taller trees have a larger volume, with the null hypothesis being that hight has no effect on volume.
+
+```{r}
+#First lets read in, and look at our data to make sure we don't have any crazy outliers, or obvious non-linear relationships
+data(trees)
+plot(trees$Height, trees$Volume)
+```
+So we see above that there are no obvious outliers or clear non-linear relationships, so lets go ahead a fit a simle regression to our data.  
+
+To fit a regression to data in r we actually fit something called a linear model with the function lm. Like with our ANOVA, we need to assign our model to a variable to then summarize it.
+```{r}
+model <- lm(formula = Volume ~ Height, data=trees)
+summary(model)
+```
+
+Again here we get a lot of information, but what's really important for our purpouses is in the last two rows, our R^2 value and significance. We see that we have an R^2 above 0, and a p value bellow 0.05, so there is infact a significant relationship between hight and volume! Which makes sense! Go team!  
+
+I hope this has all be informative, and will be going forward as we work with data throughout this course! If you have any questions let me (Alex) know so I can clarify them!  
+
+Now go ahead back to the lab 1 file and finish up with the regression section! See you all next week!

@@ -11,7 +11,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 # Descriptive statistics with iris
 
-Bellow, I'll pull out data on all indiviauls of the species Iris setosa, and assign them to the data frame setosa (a data frame is one way R stores data, think of it like a spreadsheet, but instead of clicking on columns, we use the $ to tell R what column we want to look at)
+Bellow, I'll pull out data on all indiviauls of the species Iris setosa, and assign them to the data frame setosa (a data frame is one way R stores data, think of it like a spreadsheet, but instead of clicking on columns, we use the $ to tell R what column we want to look at).  
+
+Note that there are two easy ways to run a chunk of code in R, first, you can click the green arrow in the top right corner of the chunk of code. The other option, and the one I use more offten, is that if you've clicked within the code cell (between ```{r} and ```) then you can press ctrl + enter and the entire chunk will run!
 ```{r dataDevisionExample}
 #first we read in the iris data set, as shown before
 data("iris")
@@ -121,3 +123,11 @@ Finally, do the results of these comparisons align with the conclusions you visu
 An important note about these results is that we can tell what the differences between these species are based on these statistics, but what they don't tell us is, how meaningful are these differences? Is thee a real difference in sepal width between these species, or did we just happen to randomly select individuals with different distributions? This is whee inferential statistics come in! Go back to the introduction to statistics file, and read up on how to rigorously ask these questions!
 
 # Inferential statistics
+
+## t-tests
+We're now going to depart from our classic iris data set, and start to read data in from files ourside R. To do this we'll emply a function called read.csv, which reads a comma sepperated value file, which is basically an excel file, but in plain text with commas between values.
+
+```{r}
+read.cs
+```
+

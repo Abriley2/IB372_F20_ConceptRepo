@@ -938,8 +938,22 @@ cor.test(iris$Sepal.Length, iris$Sepal.Width)
 ## -0.1175698
 ```
 
-We see that not only was there not a strong, significant positive relationship between sepal length and width, there was even a (non-significant) slight negative relationship! So we see here that sepals on our iris species seem to be either long, or wide, not just larger or smaller! Aren't stat's awesome??
+We see that not only was there not a strong, significant positive relationship between sepal length and width, there was even a (non-significant) slight negative relationship! So we see here that sepals on our iris species seem to be either long, or wide, or both, not just larger or smaller! Aren't stat's awesome??
 
 As usual, move back to the lab 1 notebook and come back when you've worked through correlations!
 
 ## Regression
+
+Regressions are really similar to correlations, but with one important difference, a regression does imply a causitive relationship, because we are actively fitting our dependent variable as a function of our independent variable. This is super helpful when you have a clear relationship in mind, but note you're still driving, if you put in a relationship that doen't actually make any sense, but a regression fits, you'll get a meaningless significant result!  
+
+For this lab we're going to focus on linear regressions, but note that just about any relationship you can have between two mathematical variables you can fit as a regression (exponential, logistic, logarithmic, trigonometic, etc.), like ANOVAs there are entire courses on regression, so there's lots you can dive into if you get excited about them!  
+
+The form of linear regression is as follows: $$Y = a + bX + \epsilon$$  
+where Y is our dependent variable, a and b are our regression coefficients (what we're looking to find), X is our independent variable, and $\epsilon$ is our residual error, or just anything not accounted for by our regression coeffecients.  
+
+We won't get into the details of how the computer actually calculates a and b, but if you're interested it's generally in the field of machine learning, offten with a technique called gradient decent. All you need to know is that the computer finds an a and b the minimizes the squared distance of data points from the regression line.  
+
+With regressions we use a value called $R^2$ to undertand how good the fit of our relationship to our data is, which is called the coefficient of variation. $R^2$ represents the propotion of variation in Y explained by the regression, so it varries from 0 to 1.  
+
+Note that in a simple linear regression $R^2$ is the same as the pearson correlation coefficient (r) squared, but that this is a special case and you should always make sure that you're using the appropriate test, and the appropriate terms. This will make life much easier when some day you need to model more complex relationships!
+
