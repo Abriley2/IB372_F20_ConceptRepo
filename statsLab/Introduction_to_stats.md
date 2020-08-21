@@ -1,7 +1,7 @@
 ---
-title: "Introdution to statistics"
+title: "Introduction to statistics"
 author: "Alex Riley"
-date: "6/3/2020"
+date: "8/25/2020"
 output: 
   html_document: 
     keep_md: yes
@@ -11,17 +11,21 @@ output:
 
 # Introduction
 
-Welcome to your first IB 372 lab!  
+Welcome to your first IB 372 lab! 
 
-In this lab we'll be going over introductory statistics, a topic that will set you up for the data analysis and interperitation you'll be doing throughout the semester and throughout your careers in just about any field going forward.  
+In this lab we'll be going over introductory statistics, a topic that will set you up for the data analysis and interpretation you'll be doing throughout the semester and throughout your careers in just about any field going forward.  
 
 We'll go over two major types of statistics, **descriptive** statistics, and **inferential** statistics, as well as covering the basics of how to read data into R, and explore that data with these statistics.  
 
-By the end of this lab, you should be able to apply the described descriptive and inferential statistics to a data set, define common statstical terms, and be able to interperate the output of each analysis described here. For a detailed list of learning outcomes, check out the list at the end of this lab.
+By the end of this lab, you should be able to apply descriptive and inferential statistics to a data set, define common statistical terms, and be able to interperate the output of each analysis described here.
+
+NOTE, THIS LAB GOES WITH THE LAB 1 R MARKDOWN (.Rmd) FILE! THAT IS WHERE ALL QUESTIONS AND EXCERSISES REFFERED TO HERE WILL BE, MAKE SURE AFTER EACH SECTION OF THIS DOCUMENT YOU GO TO THAT FILE AND WORK THROUGH THE CORRESPONDING SECTION!
+
+Also if you're looking at this in R studio directly, you should either open the HTML version available, or click "Knit" on the row of tools above this text to get it to the html format. You might have to install a library or two for that, so I would recommend working from the pre compiled version in html, but eventually you will likely turn things in after "knitting them" into a more readable format, so feel free to get that set up as well!
 
 # Getting into a data set
 
-For today's lab, you'll be using several data sets that you'll read into R from files we provide, but we'll start out demonstrating a few concepts with a data set provided with every R installation, first off let's use the data set called "iris"  
+For today's lab, you'll be using several data sets that you'll read into R from files we provide, but we'll start out demonstrating a few concepts with a data set provided with every R installation, first off let's use the data set called "iris".  
 
 Because this data set is included with R, we can import it by just using the following code 
 
@@ -60,13 +64,13 @@ head(iris)
 ## 6          5.4         3.9          1.7         0.4  setosa
 ```
 
-We can get a lot of usefull information about our data from just these two functions in R (a function in R is just like a function in your old math class, it's anything that takes one thing in, does something with it, and spits something else out)  
+We can get a lot of useful information about our data from just these two functions in R (a function in R is just like a function in your old math class, it's anything that takes one thing in, does something with it, and spits something else out).  
 
-From the output of running dim on our data set, we can see that we have 150 rows of our data set, which corrospond to 150 iris **individuals**, and 5 columns of our data, which corrospond to 5 **variables**, or things that were measured  
+From the output of running dim on our data set, we can see that we have 150 rows of our data set, which correspond to 150 iris **individuals**, and 5 columns of our data, which correspond to 5 **variables**, or things that were measured  
 
 This is where I type something super obvious that's important to keep in mind.  
 
-If we take the entire global population of each of these species and count them, there would be more than 150 indviduals, because we're gouping based on species, we would call the group of all individauls of a given species of iris the **population** of that species. A population is just the total number of plants/animals/people that have an attribute of interest. A **parameter** is the real measure of this attribute for the population. We say there are **N** individuals when we're talking about a whole population.
+If we take the entire global population of each of these species and count them, there would be more than 150 individuals, because we're grouping based on species, we would call the group of all individuals of a given species of iris the **population** of that species. A population is just the total number of plants/animals/people that have an attribute of interest. A **parameter** is the real measure of this attribute for the population. We say there are **N** individuals when we're talking about a whole population.
 
 Alternatively, our data set is a **sample** of each of those populations, a subset of the population for which a researcher measures the
 attribute. This sample is assumed to be representative of the entire population. A **statistic** is a measure of the attribute for the sample. When we're talking about a sample we say there are **n** individuals.
@@ -75,7 +79,7 @@ So for our data set, n=150, it is a sample of the global iris population.
 
 From the output of running head on our data set, we can see that the 5 variables included here are Sepal length, Sepal width, Petal length, Petal width, and species, if you're wondering why there are dots in the names of each variable, it's because including spaces in column names makes it harder to work with in R, keep that in mind as you collect your own data!
 
-We can also see from our head function that we've got two different types of variables here, the first four columns are measurements of length or width. These are called **continuous** variables, they can be any value in an uninterupted range (if you picture a number line, they can be any value on there). Species on the other hand is not a continuous variable, let's see if there are any values other than setosa, which is all we see in the first few lines.
+We can also see from our head function that we've got two different types of variables here, the first four columns are measurements of length or width. These are called **continuous** variables, they can be any value in an uninterrupted range (if you picture a number line, they can be any value on there). Species on the other hand is not a continuous variable, let's see if there are any values other than setosa, which is all we see in the first few lines.
 
 
 ```r
@@ -89,11 +93,11 @@ unique(iris$Species)
 ## Levels: setosa versicolor virginica
 ```
 
-We see here that we've got three "levels" of this variable, but they aren't numbers like our other variables. This is what's called a **nominal discrete** variable, which just means a variable where only certain values are possible (the species of iris), and the options, or levels, don't have a meaninful order. If there were a meaningful order to our possible values, we would have an **ordered discrete** variable, which could be something like shoe size, it's a number, and each size fits into an order, however there are a limited number of possible values.
+We see here that we've got three "levels" of this variable, but they aren't numbers like our other variables. This is what's called a **nominal discrete** variable, which just means a variable where only certain values are possible (the species of iris), and the options, or levels, don't have a meaningful order. If there were a meaningful order to our possible values, we would have an **ordered discrete** variable, which could be something like shoe size, it's a number, and each size fits into an order, however there are a limited number of possible values.
 
 # Descriptive statistics
 
-Now that we have a data set, and understand what we're looking at, let's start to get an idea of what our data look like quantiatively. When we're not looking to answer a specific, quantitative question, like "are the sepals of species A longer than the sepals of species B", then use what we call **descriptive** statistics, these are values like **mean**, **median**, and **mode**, that just give us a way to quantitatively describe our data.  
+Now that we have a data set, and understand what we're looking at, let's start to get an idea of what our data look like quantitatively. When we're not looking to rigorously answer a specific, quantitative question, like "are the sepals of species A longer than the sepals of species B", then use what we call **descriptive** statistics, these are values like **mean**, **median**, and **mode**, that just give us a way to quantitatively describe our data.  
 
 The best way to get started looking at a data set, is with just a simple histogram and R makes this really easy for us. Here we're going to make a histogram of our sepal width
 
@@ -105,9 +109,9 @@ hist(iris$Sepal.Width)
 
 ![](Introduction_to_stats_files/figure-html/histogram-1.png)<!-- -->
 
-This is useful because it allows us to get a look at how our data is dstributed across the range of values represented, and give us a qualitiative idea of what we're looking at.  
+This is useful because it allows us to get a look at how our data is distributed across the range of values represented, and give us a qualitative idea of what we're looking at.  
 
-As a brief, but important tangent, it's always important to keep in mind how you're visualizing your data, as well as what data your visualizing. With histograms the biggest factor to consider is, how are we breaking up our data, or how wide a range of values are we grouping together. This is important because if don't have enough groups we may clump too many individausl together and it can be hard to notice a pattern.
+As a brief, but important tangent, it's always important to keep in mind how you're visualizing your data, as well as what data your visualizing. With histograms the biggest factor to consider is, how are we breaking up our data, or how wide a range of values are we grouping together. This is important because if don't have enough groups we may clump too many individual together and it can be hard to notice a pattern.
 
 
 ```r
@@ -117,7 +121,7 @@ hist(iris$Sepal.Width, breaks = 3)
 
 ![](Introduction_to_stats_files/figure-html/notEnoughBreaks-1.png)<!-- -->
 
-Here we don't break up our data enough and we miss out on the major structure of our data (that it's approximatly normally distributed, but we'll get to that soon!). Alternatively, if we break up our data too much, we can notice patterns that aren't particularly meaningful (this is a judgement call that you'll get better at as you spend more time with real data sets!).
+Here we don't break up our data enough and we miss out on the major structure of our data (that it's approximately normally distributed, but we'll get to that soon!). Alternatively, if we break up our data too much, we can notice patterns that aren't particularly meaningful (this is a judgement call that you'll get better at as you spend more time with real data sets!).
 
 
 ```r
@@ -126,19 +130,19 @@ hist(iris$Sepal.Width, breaks = 45)
 
 ![](Introduction_to_stats_files/figure-html/tooManyBreaks-1.png)<!-- -->
 
-Now we can see the same main pattern as we did in our original histogram, however we also see a lot more rises and drops from column to column. It doesn't take away too much from the main pattern in this case, but it can throw us off of a meaningful signal in our data when we have messier data sets. How many breaks you include in a histogram is your choice, but always try out a few different ways to break up your data to make sure you're getting a real signal and not missing anything!  
+Now we can see the same main pattern as we did in our original histogram, however we also see a lot more rises and drops from column to column. It doesn't take away much from the main pattern in this case, but it can throw us off of a meaningful signal in our data when we have messier data sets. How many breaks you include in a histogram is your choice, but always try out a few different ways to break up your data to make sure you're getting a real signal and not missing anything!  
 
 Now lets learn what values we can find for our data to start to understand what we're looking at!
 
-## Measures of central tendeny
+## Measures of central tendency
 
-The first set of descriptive statistics we'll look at here are what are called **measures of central tendency**, which is really a fancy term for all the things your third grade math teacher called averages, we'll look at **mean**, **median**, and **mode**.
+The first set of descriptive statistics we'll look at here are what are called **measures of central tendency**, which for our purposes is really a fancy term for all the things your third grade math teacher called averages, we'll look at **mean**, **median**, and **mode**.
 
-The most important of these values is the **mean**, which for a **population** is called $\mu$, and for a **sample** is called $\bar{x}$, you're all probobly fermiliar with the formula for mean, but as a refresher it's defined as the following for a sample:  
+The most important of these values is the **mean**, which for a **population** is called $\mu$, and for a **sample** is called $\bar{x}$, you're all probably familiar with the formula for mean, but as a refresher it's defined as the following for a sample:  
 $$ \bar{x} = \frac{\sum_{i=1}^n x_i}{n} $$
-Or, in english, just the sum of all the values devided by the number of values.
+Or, in English, just the sum of all the values divided by the number of values.
 
-The **median** is just the middle value in a set of data, if you'r data is in order and you have an odd number of values, the median is just the value in the middle, or the $\frac{n+1}{2}th$ value, so $$ M_{odd} = x_\frac{n+1}{2}$$  
+The **median** is just the middle value in a set of data, if you're data is in order and you have an odd number of values, the median is just the value in the middle, or the $\frac{n+1}{2}th$ value, so $$ M_{odd} = x_\frac{n+1}{2}$$  
 If you've got an even number of values, because you may not have one value in the middle, you take the average of the two numbers closest to the middle, so $$M_{even} = \frac{x_\frac{n}{2}+x_\frac{n+1}{2}}{2}$$
 
 The **mode**, on the other hand, is the most common value in a data set.
@@ -148,7 +152,7 @@ then the **mean** = 5.214286
 the **median** = 6
 and the **mode** = 1
 
-If our data are **normally** distributed, think a symetrical bell curve, the mean is just at the peak of a histogram of the data, to demonstrate that, here's a plot of some randomly simulated normal data, with a red line representing the mean.
+If our data are **normally** distributed, think a symmetrical bell curve, the mean is just at the peak of a histogram of the data, to demonstrate that, here's a plot of some randomly simulated normal data, with a red line representing the mean.
 
 
 ```r
@@ -168,7 +172,7 @@ abline(v=xBar, col="red", lwd=2)
 
 ![](Introduction_to_stats_files/figure-html/normalData-1.png)<!-- -->
 
-Interestigly, if the data is normal then the mode and median are also rigth in the middle where the highest frequency is, it takes a little buit of code that I'd rather not complicate things with for this example to get the mode of our data in R, so I'm going to leave out a plot with the mode, but here's one with the mdedian in blue
+Interestingly, if the data is normal then the mode and median are also right in the middle where the highest frequency is, it takes a little bit of code that I'd rather not complicate things with for this example to get the mode of our data in R, so I'm going to leave out a plot with the mode, but here's one with the median in blue
 
 
 ```r
@@ -184,9 +188,9 @@ abline(v=xMed, col="blue", lwd=2)
 
 ![](Introduction_to_stats_files/figure-html/modeAndMedian-1.png)<!-- -->
 
-While measures of central tendancy don't tell us much about how our data are actually distributed, they can tell us if our data is **skewed**, basically just whether or not our data are perfectly semetrical. If our **mean, median, and mode are all equal**, then we know our data are symetrical and **not skewed** in the negative or positive direction, if our **mean is lower than our median and mode** then we call our data **negatively skewed**, and if our **mean is higher than our median and mode**, we say our data is **positively skewed**, don't worry too much about knowing the specifics of each of these terms, just know that not all data are symetrical, and if they aren't we say they're skewed.
+While measures of central tendency don't tell us much about how our data are actually distributed, they can tell us if our data is **skewed**, basically just whether or not our data are perfectly symmetrical. If our **mean, median, and mode are all equal**, then we know our data are symmetrical and **not skewed** in the negative or positive direction, if our **mean is lower than our median and mode** then we call our data **negatively skewed**, and if our **mean is higher than our median and mode**, we say our data is **positively skewed**, don't worry too much about knowing the specifics of each of these terms, just know that not all data are symmetrical, and if they aren't we say they're skewed.
 
-That's all the measures of central tendancy you need to know, so now let's move on to measures of dispersion
+That's all the measures of central tendency you need to know for most applications, so now let's move on to measures of dispersion
 
 ## Measures of dispersion
 
@@ -223,12 +227,12 @@ plot(x, y, type="l", lwd=1)
 ![](Introduction_to_stats_files/figure-html/whyWeCareAboutDispersion-3.png)<!-- -->
 You'd be right in thinking they are different because they all have different **standard deviations**  
 
-**Standard deviation**, generally represented as $\sigma$ for a population or $s$ for a sample, is a measure of how spread out our data is, it's really useful for understanding the normal distrubution, which I'll talk about in just a second.  
+**Standard deviation**, generally represented as $\sigma$ for a population or $s$ for a sample, is a measure of how spread out our data is, it's really useful for understanding the normal distribution, which I'll talk about in just a second.  
 
-While **standard deviation** is great, and has a straight forward interpritation, we rarely calculate it directly, it's actually easier to calculate the squared **standard deviation**, which we call **variance** ($\sigma^2$ for a population, or $s^2$ for a sample). The formula for variance is $$s^2=\frac{\sum_{i=1}^{n}(x_i-\bar{x})^2}{n-1}$$  
+While **standard deviation** is great, and has a straight forward interpretation, we rarely calculate it directly, it's actually easier to calculate the squared **standard deviation**, which we call **variance** ($\sigma^2$ for a population, or $s^2$ for a sample). The formula for variance is $$s^2=\frac{\sum_{i=1}^{n}(x_i-\bar{x})^2}{n-1}$$  
 but we won't hold you responsible for having this memorized  
 
-The reason **standard deviation** is so useful is it allows us to translate knowing that our data is normal, into knowing what proportion of our data is where, for example in a perfect, normal data set, we know that 68.2% of our data falls within one standard devation of the mean, a 95% chance it falls within 2 standard deviations ,and there's only a 0.2% chance of getting a value more than 3 standard deviations from the mean. Here are the same plots as above but with lines drawn in blue at one standard deviation out, in red at two standard deviations out, and in green at three standard deviations out.
+The reason **standard deviation** is so useful is it allows us to translate knowing that our data is normal, into knowing what proportion of our data is where, for example in a perfect, normal data set, we know that 68.2% of our data falls within one standard deviation of the mean, a 95% chance it falls within 2 standard deviations ,and there's only a 0.2% chance of getting a value more than 3 standard deviations from the mean. Here are the same plots as above but with lines drawn in blue at one standard deviation out, in red at two standard deviations out, and in green at three standard deviations out.
 
 
 ```r
@@ -279,7 +283,7 @@ abline(v=-3*y.stDev, col="green", lwd=2)
 
 ![](Introduction_to_stats_files/figure-html/sdDemoPlots-3.png)<!-- -->
 
-In addition to **range**, **standard deviation**, and **variance**,  it's also helpful to have an undersanding of **standard error**, while we won't spend much time on it here, standard error gives us a value to compare how well a sample mean estimates the population mean, it's value is 
+In addition to **range**, **standard deviation**, and **variance**,  it's also helpful to have an understanding of **standard error**, while we won't spend much time on it here, standard error gives us a value to compare how well a sample mean estimates the population mean, it's value is 
 $$\frac{s}{\sqrt{n}}$$  
 so the larger our sample (n) the smaller our error is, and the higher our standard deviation (s), the larger it is
 
@@ -287,7 +291,7 @@ so the larger our sample (n) the smaller our error is, and the higher our standa
 
 Let's take what we've learned about descriptive statistics, and apply them to our sepal length data for our iris species!  
 
-First, let's get measures of central tendancy. We'll foregoe mode here because we can get all the information we need here from our mean and median, and R can calculate them with build in functions
+First, let's get measures of central tendency. We'll forego mode here because we can get all the information we need here from our mean and median, and R can calculate them with build in functions
 
 
 ```r
@@ -308,11 +312,11 @@ median(iris$Sepal.Width)
 ## [1] 3
 ```
 
-You might be thinking, OH MY GOSH! OUR MEAN AND MEDIAN AREN'T EQUAL SO OUR DATA ISN'T NORMAL!!!!, HOW CAN WE USE ANY OF WHAT WE LEARN TODAY (spoiler alert, lots of what we learn today requires normal data) IF OUR DATA ISN'T NORMAL???, and you'd technically be right, having a mean and median that are different does mean our data is skewed, but the difference is so small it's effectively meaningless here, even with data much more skewed than this people offten assume normality, or if they can't will apply a function to their data to make it more normal, because a huge amount of the work done in statistics is on how to tell things about normal, or normalized data sets. 
+You might be thinking, OH MY GOSH! OUR MEAN AND MEDIAN AREN'T EQUAL SO OUR DATA ISN'T NORMAL!!!!, HOW CAN WE USE ANY OF WHAT WE LEARN TODAY (spoiler alert, lots of what we learn today requires normal data) IF OUR DATA ISN'T NORMAL???, and you'd technically be right, having a mean and median that are different does mean our data is skewed, but the difference is so small it's effectively meaningless here, even with data much more skewed than this people often assume normality, or if they can't will apply a function to their data to make it more normal, because a huge amount of the work done in statistics is on how to tell things about normal, or normalized data sets. 
 
-We won't spend much time on them, but you should also be aware that there are statistical tests and inferences we can make based on data that isn't normalized (called non-parametric statistics), or based on data that fit other distributions (poisson, chi-squared, etc.). We'll focus on normal, or almost normal data here, because it makes the statistical tests we run much more straightforward!
+We won't spend much time on them, but you should also be aware that there are statistical tests and inferences we can make based on data that isn't normalized (called non-parametric statistics), or based on data that fit other distributions (Poisson, chi-squared, etc.). We'll focus on normal, or almost normal data here, because it makes the statistical tests we run much more straightforward!
 
-Now that we know our data is approximately normal (we won't actaully run a formal test of this, we're basing it on the histogram and the approximately equal mean and median), we can move on to charecterize the dispersion of our data. 
+Now that we know our data is approximately normal (we won't actually run a formal test of this, we're basing it on the histogram and the approximately equal mean and median), we can move on to characterize the dispersion of our data. 
 
 
 ```r
@@ -358,34 +362,32 @@ Both the dispersion and centrality statistics of this data set are nice to have,
 # Inferential statistics
 
 ## Inference
-Welcome back! Now that we've got a grasp on how we can get an idea of what our data looks like, we're going to dive into how we can actually draw conclusions about questions we're interested in based on that data, using a set of tools called **inferential statistics**.  
+Welcome back! Now that we've got a grasp on how we can get an idea of what our data looks like, we're going to dive into how we can actually draw conclusions about questions we're interested in based on that data using a set of tools called **inferential statistics**.  
 
 **Inference** is the process by which we draw conclusions about an unknown based on evidence or prior experience. As you might expect, **inferential statistics** is a set of tools we use to draw conclusions about a population based on a sampled from that population. Here is a great time to remember that all of these tools assume our sample is **representative** of our population, if we sample in a way that biases the data, our conclusions can be wrong or misleading with regards to the population as a whole.  
 
-All inferential statistics are build to test a set of hypotheses, we refer to these as a **null** hypothesis, referred to as $H_0$ which states that the thing we're testing doesn't have an impact and an **alternative hypothesis**, referred to as $H_A$, that what we're testing DOES have an impact. You've probably heard these terms before, but in case you haven't don't worry, they'll get clearer with time!  
+All inferential statistics are build to test a set of hypotheses, we refer to these as a **null** hypothesis, $H_0$, which states that the thing we're testing doesn't have an impact and an **alternative hypothesis**, $H_A$, that what we're testing DOES have an impact, or is different. You've probably heard these terms before, but in case you haven't don't worry, they'll get clearer with time!  
 
 ## Significance and some words of warning!
 
-Inferential statistics allow us to test the **signifigance** of a pattern we see in our data given our null and alternative hypotheses. When folks talk about the signifigance of a result, they're really talking about how likely you would be to see the pattern in your data under the expectations of the null hypothesis. We call this probability a **p-value**, so for example, if p = 0.1, there's a 10% chance you'd get your result under the expectations of your null hypothesis. While it's not always clear how low a p-value needs to be to indicate a meaningful pattern in your data, a cutoff of 0.05, or a 5% chance of getting your data randomly under the null hypotheis, is generally used in scientific litterature.  
+Inferential statistics allow us to test the **significance** of a pattern we see in our data given our null and alternative hypotheses. When folks talk about the significance of a result, they're really talking about how likely you would be to see the pattern in your data under the expectations of the null hypothesis. We call this probability a **p-value**, so for example, if p = 0.1, there's a 10% chance you'd get your result under the expectations of your null hypothesis. While it's not always clear how low a p-value needs to be to indicate a meaningful pattern in your data. A cutoff of 0.05, or a 5% chance of getting your data randomly under the null hypothesis is generally used in scientific literature. Note, however, that there are years of courses you could take on how we arrive at specific p-values, if you'd like one I'd recommend probability theory over in the math department, and I'll talk a bit about how we get to them for the various tests we discuss, but we'll largely focus on building an intuition around these values and what they might mean for the science we're doing.  
 
-There are years of courses you could take on how we arive at specific p-values, if you'd like one I'd recommend prability theory over in the math department, and I'll talk a bit about how we get to them for the various tests we discuss, but we'll largely focus on building an intuition around these values and what they might mean for the science we're doing.  
+Before we move on there are a few notes of caution about the things I just told you. First and foremost is to remember that **a p-value is a probability**, we cannot say for sure that our alternative, or null hypotheses are 100% true. Instead we say that we either **fail to reject the null hypothesis**, or that our results **do not support our alternative hypothesis**, remember we're using a limited data set with only one null hypothesis, it's entirely possible we either just didn't collect enough data to show our alternative hypothesis, or that some other process that we didn't test for is at work in our data, stats is all about bet hedging.  
 
-Before we move on there are a few notes of caution about the things I just told you. First and foremost is to remember that **a p-value is a prability**, we cannot say for sure that our alternative, or null hypotheses are 100% true. Instead we say that we either **fail to reject the null hypothesis**, or that our results **do not support our alternative hypothesis**, remember we're using a limited data set with only one null hypothesis, it's entirely possible we either just didn't collect enough data to show our alternative hypothesis, or that some other process that we didn't test for is at work in our data, stats is all about bet hedging.  
+Because there's always a chance our test gives us the incorrect result, we've got terms to identify when we either incorrectly support or reject $H_0$. **Type 1 error** is when we reject $H_0$ when $H_0$ is actually true (false positive). The probability of a type 1 error is denoted $\alpha$ and referred to as the significance level of the test (not to be confused with the significance of our result). Alternatively **Type 2 error** is when we accept $H_0$, when $H_0$ is really false (false negative). The probability of type 2 error is denoted as $\beta$, and $1-\beta$ is referred to as the **power** of a test. 
 
-Because there's always a chance our test gives us the incorrect result, we've got terms to identify when we either incorrectly support or reject $H_0$. **Type 1 error** is when we reject $H_0$ when $H_0$ is actually true (false positive). The probability of a type 1 error is denoted $\alpha$ and reffered to as the significance level of the test (not to be confused with the significance of our result). Alternatively **Type 2 error** is when we accept $H_0$, when $H_0$ is really false (false negative). The probability of type 2 error is denoted as $\beta$, and $1-\beta$ is reffered to as the **power** of a test. 
-
-Finally (and then I promise we'll actaully get into some tests!) another important note is that your data **have to exactly, or almost exactly, meet the assumptions of the test you're doing!** If you're running a test that has the null expectation that your data are normal for example, on data that is nowhere near normal, then it's easy to get a significant result that really just means you ran the wrong test! Remember, in the background stats is just math, once you run a test all your computer is doing is math, it's up to you to make sure you check to see that the result of that math will be meaningful! There's a famous expression in stats, garbage in garbage out, if your data is bad or doesn't meet the assumptions of a test, then you'll get garbage out!  
+Finally (and then I promise we'll actually get into some tests!) another important note is that your data **have to exactly, or almost exactly, meet the assumptions of the test you're doing!** If you're running a test that has the null expectation that your data are normal for example, on data that is nowhere near normal, then it's easy to get a significant result that really just means you ran the wrong test! Remember, in the background stats is just math, once you run a test all your computer is doing is math, it's up to you to make sure you check to see that the result of that math will be meaningful! There's a famous expression in stats, garbage in garbage out, if your data is bad or doesn't meet the assumptions of a test, then you'll get garbage out!  
 
 ## T-Tests  
 
 A t-test is one of the most straight forward statistical tests, while also being one of the most useful in a lot of the contexts we'll be using stats in, so we'll start there!  
-A **t-test** takes a set of normal data and determines how statistically significant the mean of that data set is from either a pre-defined value (one sample t-test), or the mean of another normal data set (two sample t-test).  
+A **t-test** takes a set of normal data and determines how statistically significant the difference is between the mean of that data set is from either a pre-defined value (one sample t-test), or the mean of another normal data set (two sample t-test).  
 I'm a big fan of the Ms.Frizzle (any magic school buss fans out there?) way of learning, so before we dive too deep into the details of the t-test, lets dive into a t-test in R and work from there!  
 
 
 ### t-test example
 
-We'll start out using the iris data we've been working with, let's do somee work to see if a few of the measured traits on our iris data varry between specis. I won't annotate the first few lines breaking up the data, as they miror code you'll have already written in the lab 1 
+We'll start out using the iris data we've been working with, let's do some work to see if a few of the measured traits on our iris data vary between spices. I won't annotate the first few lines breaking up the data, as they mirror code you'll have already written in the lab 1.  
 
 First lets look at our data and see if it meets our expectations, and determine what we think is the likely outcome of our tests
 
@@ -507,7 +509,7 @@ ggplot(iris, aes(Sepal.Length, fill=Species)) + geom_density(alpha=0.2)
 
 ![](Introduction_to_stats_files/figure-html/unnamed-chunk-2-4.png)<!-- -->
 
-So we see that our data looks (approximately) normal, and that there appear to be differences between the data sepal length between species, but is the differences just the effects of random sampling differences? Or is it meaningful? For that we'll run our first T-test.  
+So we see that our data looks (approximately) normal, and that there appear to be differences between the data sepal length between species, but is the differences just the effects of random sampling? Or is it meaningful? For that we'll run our first T-test.  
 
 Every time you run a statistical test it's important to think of the null and alternate hypotheses for the tests your running. Let's take the test between Iris setosa and Iris virginica (setosa and verginica moving forward).  
 
@@ -536,17 +538,17 @@ Before we spend any time with the code we used to run our t.test, let's look at 
 
 #### t
 
-Starting with the t-statistic, this is the actual output of the equation our t-test runs in the background (listed bellow). In the olden days, as well as in previous itterations of this class, you would do this test by hand, and then use what's called a t-table to look up the value of your t-statistic with respect to the number of degrees of freedom (df) and the significance value you were looking to test at. If your values ABSOLUTE VALUE (so for our current value, about 10.5) was greater than the one listed in the table, then your result is significant at that level, if not you could move to a lower significance threshold and see where your value landed. Because this is all sortof difficult to describe, I'll link a t-table here that you can check out at your leasure.  
+Starting with the t-statistic, this is the actual output of the equation our t-test runs in the background (listed bellow). In the olden days, as well as in previous iterations of this class, you would do this test by hand, and then use what's called a t-table to look up the value of your t-statistic with respect to the number of degrees of freedom (df) and the significance value you were looking to test at. If your values ABSOLUTE VALUE (so for our current value, about 10.5) was greater than the one listed in the table, then your result is significant at that level, if not you could move to a lower significance threshold and see where your value landed. Because this is all sort of difficult to describe, I'll link a t-table here that you can check out at your leisure.  
   
-https://www.sjsu.edu/faculty/gerstman/StatPrimer/t-table.pdf  
+httpd://www.sjsu.edu/faculty/gerstman/StatPrimer/t-table.pdf  
 
 #### df
   
 Moving on to our degrees of freedom (df), this is a tougher one to grasp, so I'll give a brief description, but I recommend that as you move on in your statistics education you look up a few guides and intuitive descriptions of what this means.  
 
-Generally, degrees of freedom signify how many variables that we're looking at are free to change, given any information that's coded into the distribution your test is using, in the case of a t-distribution the only piece of information that comes from our data is the mean of the distribution for each sample (don't stress to much about this point), so for both setosa and versicolor all but one of the values could change freely, but to keep the mean the same one value will always have to reflect those changes to keep the mean the same. If you want to understand this a little better, try taking 10 random values and get the mean of those values, then replace 9 of those with a new set of random numbers, if you also change the 10th at random, the mean is likely to change, but if the 10th is adjusted propperly, then the mean can stay the same.   
+Generally, degrees of freedom signify how many variables that we're looking at are free to change, given any information that's coded into the distribution your test is using, in the case of a t-distribution the only piece of information that comes from our data is the mean of the distribution for each sample (don't stress to much about this point), so for both setosa and versicolor all but one of the values could change freely, but to keep the mean the same one value will always have to reflect those changes to keep the mean the same. If you want to understand this a little better, try taking 10 random values and get the mean of those values, then replace 9 of those with a new set of random numbers, if you also change the 10th at random, the mean is likely to change, but if the 10th is adjusted properly, then the mean can stay the same.   
 
-For a standard two sample t-test, the number of degrees of freedom is the number of samples in the first group, plus the number in the second, minus 2 (${n_1}+{n_2}-2$), as desribed above. because we have 50 samples for each species, that makes sense here!   
+For a standard two sample t-test, the number of degrees of freedom is the number of samples in the first group, plus the number in the second, minus 2 (${n_1}+{n_2}-2$), as described above. because we have 50 samples for each species, that makes sense here!   
 
 #### p-value
 
@@ -586,9 +588,9 @@ plot(function(x) dt(x, 98), -11,11, main="t-distribution with 98 degrees of free
 
 ![](Introduction_to_stats_files/figure-html/unnamed-chunk-5-1.png)<!-- -->
  
-With these distributions, the area under the curve (the integral for those who are as stoked about math as they should be!) represents the probability of all possible events (1). When we run a t-test that's two sided, specifying just that our values are different, the actual p value represents the area under the curve both bellow the negative value the absolute value of our t-stat, and above the absolut value itself. If you recall, our t-statistic is about -10.5, so if you look at this figure you can see theres almost nothing in the described area! So our p value is very low! This is called a two-tailed t-test, because we look at both tails of the distribution.  
+With these distributions, the area under the curve (the integral for those who are as stoked about math as they should be!) represents the probability of all possible events (1). When we run a t-test that's two sided, specifying just that our values are different, the actual p value represents the area under the curve both bellow the negative value the absolute value of our t-stat, and above the absolute value itself. If you recall, our t-statistic is about -10.5, so if you look at this figure you can see there's almost nothing in the described area! So our p value is very low! This is called a two-tailed t-test, because we look at both tails of the distribution.  
 
-Alternatively, if we specify greater as our alternative hypothesis, as we did above, the sign of our t-statistic does matter, and we take the value above our t-statistic. Again looking at the plot up above it's clear that almost all of the area under the curve is above -10.5, so there's a probability of almost 1 (100%) that our data does NOT meaninfully represent the pattern in our alternative hypothesis, which makes sense looking at our data!  
+Alternatively, if we specify greater as our alternative hypothesis, as we did above, the sign of our t-statistic does matter, and we take the value above our t-statistic. Again looking at the plot up above it's clear that almost all of the area under the curve is above -10.5, so there's a probability of almost 1 (100%) that our data does NOT meaningfully represent the pattern in our alternative hypothesis, which makes sense looking at our data!  
 
 If we specify less, our the t-test does the opposite, which generally would halve our p-value, but in this case our p-value is so low the computer doesn't try to represent that number and just says it's lower than the same REALLY low number. These are examples of one-tailed t-tests, which just look at one tail of the distribution.  
 
@@ -611,11 +613,11 @@ t.test(setosa$Sepal.Length, versicolor$Sepal.Length, alternative = "less", var.e
 ##     5.006     5.936
 ```
 
-Generally you should default to a two-tailed t-test, and only use a one tailed when you have a REALLY strong reason to assume theres a direction to the relationship you're looking at (ie. plants with more light will grow larger etc.).
+Generally you should default to a two-tailed t-test, and only use a one tailed when you have a REALLY strong reason to assume there's a direction to the relationship you're looking at (ie. plants with more light will grow larger etc.).
 
-#### Equal varience?
+#### Equal variance?
 
-The other piece of the code we have here is var.equal=TRUE. This just means we're telling the t-test to assume the varience of our two data sets is equal. Looking at our data, this may work, but it's generally not a totally safe assumption. The main reason we used it here is because if we don't assume it, R will use a lower, more stringent number of degrees of freedom to account for the unequal varience. We won't go into a lot of details on this, but I'll run it bellow with that as FALSE, which is the default, and that's the version you should use going forward.
+The other piece of the code we have here is var.equal=TRUE. This just means we're telling the t-test to assume the variance of our two data sets is equal. Looking at our data, this may work, but it's generally not a totally safe assumption. The main reason we used it here is because if we don't assume it, R will use a lower, more stringent number of degrees of freedom to account for the unequal variance. We won't go into a lot of details on this, but I'll run it bellow with that as FALSE, which is the default, and that's the version you should use going forward.
 
 
 ```r
@@ -636,32 +638,32 @@ t.test(setosa$Sepal.Length, versicolor$Sepal.Length, alternative = "less", var.e
 ##     5.006     5.936
 ```
 
-That covers the baics of t-tests we'll go over here, go into the lab 1 notebook and try some for yourself!
+That covers the basics of t-tests we'll go over here, go into the lab 1 notebook and try some for yourself!
 
 ## ANOVA
 So we've now covered how to test for a significant difference between two groups at a time, or between one group and a theoretical distribution, but what if we have more than two groups? While the obvious answer might seem to be that we should just run a bunch of t-tests and look at their flat p-values, there are actually some major flaws with that strategy.  
 
-Think back to what a p-value is, the probability that random sampling from whatever the hypothesised distribution of our null-hypothesis represents can account for the patterns in our data. Now think of a data set where our samples are grouped into 10 groups, that's 45 comparsisons (10 choose 2, ${10\choose2}$). If we use a p-value cutoff of 0.05, then even if all of our comparisons are significant, with a 1 in 20 chance that they're actually just different due to chance, then on average at least 2 of those comparisons will be false positives.  
+Think back to what a p-value is, the probability that random sampling from whatever the hypothesized distribution of our null-hypothesis represents can account for the patterns in our data. Now think of a data set where our samples are grouped into 10 groups, that's 45 comparisons (10 choose 2, ${10\choose2}$). If we use a p-value cutoff of 0.05, then even if all of our comparisons are significant, with a 1 in 20 chance that they're actually just different due to chance, then on average at least 2 of those comparisons will be false positives.  
 
-There are several methods to account for this, a few of which I'll breifly touch on at the end of this section, but the main one we're going to focus on is called an ANOVA, or an ANalysis Of Variance. 
+There are several methods to account for this, a few of which I'll briefly touch on at the end of this section, but the main one we're going to focus on is called an ANOVA, or an Analysis Of Variance. 
 
 ### What's an ANOVA?
 
-*A quick note up top, anova's are a HUGE topic! There are entire courses on how anovas work and all the variation in them, we'll cover the basics of an archatypal anova, but if you see one that does something diffent from what I'm describing, or it feels like theres more to the story than I'm describing here, it's because these things can get really wild really fast! Which is what makes them such a cool tool!*
+*A quick note up top, anovas are a HUGE topic! There are entire courses on how anovas work and all the variation in them, we'll cover the basics of an archetypal anova, but if you see one that does something different from what I'm describing, or it feels like there's more to the story than I'm describing here, it's because these things can get really wild really fast! Which is what makes them such a cool tool!*
 
-An ANOVA tests for differences between groups using groupings broken into factors and levels, which I'll describe in just a second. The null hypothesis of an ANOVA is that differences between groupings (and sometimes the interaction between those groupings!) do not account for a significant amount of the differences between individuals. That's sortof a lot of word salad, and it's a lot easier to understand in terms of the alternative hypothesis, which is, broadly, just that individuals from different groups will be different.  
+An ANOVA tests for differences between groups using groupings broken into factors and levels, which I'll describe in just a second. The null hypothesis of an ANOVA is that differences between groupings (and sometimes the interaction between those groupings!) do not account for a significant amount of the differences between individuals. That's sort of a lot of word salad, and it's a lot easier to understand in terms of the alternative hypothesis, which is, broadly, just that individuals from different groups will be different.  
 
 ### Factors and levels
 
 As I mentioned above, AMOVAs use groupings of individuals based on **factors** and **levels**.  
-**Factors** are are ways that we can group individuals, and **levels** are just the actual groups within those factors. So for example, if you've got data on the fecundity (how many babies they have) of different fish species that were all grown in different types of habitat types, you've got two **factors**; fish species, and habitat type, with multiple **levels** within each of those factors. For example, within fish species you might have 5 different species, and within habitat type you might have three differnt types of rivers.
+**Factors** are are ways that we can group individuals, and **levels** are just the actual groups within those factors. So for example, if you've got data on the fecundity (how many babies they have) of different fish species that were all grown in different types of habitat types, you've got two **factors**; fish species, and habitat type, with multiple **levels** within each of those factors. For example, within fish species you might have 5 different species, and within habitat type you might have three different types of rivers.
 
 ### How does an ANOVA work?
 
 
 An ANOVA works differently from a t-test in that it's breaking down the variation within and between groups. This can be a tough concept, so lets run through it with our iris data, describing the conceptual steps of an ANOVA.
 
-First an ANOVA calculates a value called the totall sum of squares ($SST$). This value represents the the sum of squared deviation from the mean (just distance from the mean) of all the values combined.
+First an ANOVA calculates a value called the total sum of squares ($SST$). This value represents the the sum of squared deviation from the mean (just distance from the mean) of all the values combined.
 
 
 ```r
@@ -691,9 +693,9 @@ abline(h=mean(virginica$Sepal.Length), col="green")
 
 Note that $SST$ will always be greater than or equal to $SSE$, with the remaining variance being from within the factor itself ($SSF$), and so $$SST=SSE+SSF$$.  
 
-That's not an equation you necessarily have to know, but just understand that an ANOVA uses this to break down the variaition that each level accounts for, to understand whether the differences between those levels is meaningful.  
+That's not an equation you necessarily have to know, but just understand that an ANOVA uses this to break down the variation that each level accounts for, to understand whether the differences between those levels is meaningful.  
 
-The way this works is by deving the sum of squares at a given level ($SSE/T/F$) by the degrees of freedom for that sum of squares, to the compute what's called the mean square variability ($MS$). Then it devides the $MS$ for the given factor, by the $MS$ for our error term to get a statistic called F that you then compare to table similar to the one described above. This is all fairly complicated to see written out, so lets run an example on our iris data.
+The way this works is by delving the sum of squares at a given level ($SSE/T/F$) by the degrees of freedom for that sum of squares, to the compute what's called the mean square variability ($MS$). Then it devides the $MS$ for the given factor, by the $MS$ for our error term to get a statistic called F that you then compare to table similar to the one described above. This is all fairly complicated to see written out, so lets run an example on our iris data.
 
 ```r
 #first we run our anova using the aov function
@@ -746,23 +748,23 @@ summary(iris.aov)
 ```
 The summary output above gives us everything we need to understand the ANOVA. We can see for our species level the sum of squares, the $MS$ value, the and the degrees of freedom, similarly we see it for our error term (Residuals), along with our F and p values! To make sure you understand how to get to that F statistic from our sum of squares and degrees of freedom, work through it with a pen and paper! (this will be in the lab for this section!)
 
-### A few more A-Note-VAs (notes on ANOVAs, I'm kindof a fun TA?)
+### A few more A-Note-VAs (notes on ANOVAs, I'm kind of a fun TA?)
 
 So what we've just done is basically the simplest version of an ANOVA, but note that we can also have multiple explanatory variables (factors), which can interact, or be nested within one-another.  
 
-Interacting terms basically just mean you've got two factors that interact (pretty straight forward right??). Think wayyy back to the top of this section where I talked about fish species and habbitats. It's entirely possible that a given habbitat will have a different impact on fish of different species, so not only could fish and species explain some of the variation, fish species combined with a given habitat can have an impact. The way we denote that in an r formula would be (fecundity ~ species + habitat + species*habitat), because we want to look at the effect of species, plus the effect of habitat, plus the effect of species combined with the habitat it's in.  
+Interacting terms basically just mean you've got two factors that interact (pretty straight forward right??). Think wayyy back to the top of this section where I talked about fish species and habitats. It's entirely possible that a given habitat will have a different impact on fish of different species, so not only could fish and species explain some of the variation, fish species combined with a given habitat can have an impact. The way we denote that in an r formula would be (fecundity ~ species + habitat + species*habitat), because we want to look at the effect of species, plus the effect of habitat, plus the effect of species combined with the habitat it's in.  
 
-Another thing to be aware of is a relationship called nesting. Nesting just means that one factor subdevides another factor, so it should be considered with subsets of another factor. For example, lets say that for each of the fish species we were considering, we have three genotypes. If for example we have 4 fish species, if we just include genotype as its own fully indipendent factor, then we're deviding out data up into 12 levels that are really not indipendent of our species variable. Instead we would say that genotype is a nested variable within species. That's designated in R as follows (fecundity ~ species/genotype), and will better split up variance with genotype within habitat.  
+Another thing to be aware of is a relationship called nesting. Nesting just means that one factor subdivides another factor, so it should be considered with subsets of another factor. For example, lets say that for each of the fish species we were considering, we have three genotype. If for example we have 4 fish species, if we just include genotype as its own fully independent factor, then we're dividing out data up into 12 levels that are really not independent of our species variable. Instead we would say that genotype is a nested variable within species. That's designated in R as follows (fecundity ~ species/genotype), and will better split up variance with genotype within habitat.  
 
-These relationships can get complex as you design experiments, so think about them as you move on with your scientific careers! Not accounting for an interaction or a nesting relationship can be the difference between a meaningful result and junk science! Also I still get tripped up on this stuff, as does every other person I know who uses these so don't be affraid to ask for help!  
+These relationships can get complex as you design experiments, so think about them as you move on with your scientific careers! Not accounting for an interaction or a nesting relationship can be the difference between a meaningful result and junk science! Also I still get tripped up on this stuff, as does every other person I know who uses these so don't be afraid to ask for help!  
 
 ### Other ways to account for multiple groups
 
 As promised here are a couple of other ways to work with multiple groups your testing between. I won't go into detail on either, so do some super fun googling if you're interested! Highly recommended!  
 
-First you can run a t-test with a lower significance cutoff, there are several methods for this, and they're offten reffered to as **multiple hypothesis corrections**. This lessens the chance that you're calling a non significant difference significant.
+First you can run a t-test with a lower significance cutoff, there are several methods for this, and they're often referred to as **multiple hypothesis corrections**. This lessens the chance that you're calling a non significant difference significant.
 
-The other methods I'll mention is something called a tukey test. A tuky test works very similar to running a t-test on all comparisons, and will give a pairwise, corrected p-value, for all comparisons.  
+The other methods I'll mention is something called a Tukey test. A Tuky test works very similar to running a t-test on all comparisons, and will give a pairwise, corrected p-value, for all comparisons.  
 
 The draw to both of these methods is that they give you specific p values for comparisons, while an ANOVA will just tell you that the grouping makes a difference. I would recommend always running an ANOVA first though, because otherwise you'll be searching through a massive list of p-values when it's possible none are significant in the first place. An ANOVA can save you that trouble!
 
@@ -770,9 +772,9 @@ Now head back to the lab 1 notebook and do the ANOVA section of the lab!
 
 ## Chi-Squared 
 
-Next we'll cover a chi-squared ($\chi^2$) test. We're going to go a bit less in depth here having covered the t-test and AMOVAs in a lot of detail, but generally the way the test works is the same, altho the test itself is very different. You get a test statistic based on your data which is then compared to a chi-squared distribution via a values table to understand how the data stacks up against your hypotheses.  
+Next we'll cover a chi-squared ($\chi^2$) test. We're going to go a bit less in depth here having covered the t-test and AMOVAs in a lot of detail, but generally the way the test works is the same, although the test itself is very different. You get a test statistic based on your data which is then compared to a chi-squared distribution via a values table to understand how the data stacks up against your hypotheses.  
 
-A chi-squared test is used to tell whether a set of count data differs from a null expectation, which will generally just that all groups have a proportional number of individuals (this will be clearer in a second). The number of degrees of freedom for a chi-squared test is either the number of columns in your contingency table minus 1 ($c-1$), or the following, where r represents rows, and c representes columns: $$df=(r-1)(c-1)$$  
+A chi-squared test is used to tell whether a set of count data differs from a null expectation, which will generally just that all groups have a proportional number of individuals (this will be clearer in a second). The number of degrees of freedom for a chi-squared test is either the number of columns in your contingency table minus 1 ($c-1$), or the following, where r represents rows, and c represents columns: $$df=(r-1)(c-1)$$  
 
 Furthermore, the function for the chi squared statistic is $$\sum{\frac{(observed-expected)^2}{expected}}$$  
 over all values in your contingency table.  
@@ -828,7 +830,7 @@ colSums(data)/total
 
 So above we have the proportions for each row (the fraction of the total that row accounts for, the (number of individuals in that row)/(total number of individuals)), and the same for each column. To get our expected proportion we just multiply these values for a given cell, and then multiply the value by the total number of individuals!
 
-Bellow is an example value for heavy smokers who exercie fequently.
+Bellow is an example value for heavy smokers who exercise frequently.
 
 
 ```r
@@ -873,15 +875,15 @@ chisq.test(data)
 ## X-squared = 5.4885, df = 6, p-value = 0.4828
 ```
 
-So our p-value is 0.4828, but what does that mean? It's easy to just say "that our data is not significantly different from our null expectation!" But we're scientists not statistictians! I'll sometimes ask you to you to interperate a test, and unless I'm really specific I'm always asking for a real, biological interperatation, you've been warned!  
+So our p-value is 0.4828, but what does that mean? It's easy to just say "that our data is not significantly different from our null expectation!" But we're scientists not statisticians! I'll sometimes ask you to you to interpret a test, and unless I'm really specific I'm always asking for a real, biological interpenetration, you've been warned!  
 
 So here we can't reject our null hypothesis. Think about what that means, the number of individuals for every group (for example occasional smokers who exercise sometimes) is about what it would be if you just took the proportion of people who smoke occasionally and multiplied it by the proportion of people who exercise sometimes. Generally speaking, it means that these two groupings don't seem to have a meaningful effect on each other, so how much someone exercises doesn't seem to have an impact on how much they smoke, or vica-verca.  
 
-Now take what you know about chi-squared tests and do the corrosponding section of lab 1!
+Now take what you know about chi-squared tests and do the corresponding section of lab 1!
 
 ## Correlation
 
-I'm going to assume most of you have heard of correlation's before, so I won't spend a lot of time motivating this one. Generally a correlation measures the strength of the relationship between two variables, ie, when X gets larger does Y consistently get larger? Smaller? We measure the strenght of that relationship using correlation coefficient, for this we'll focus on one specifically called **Pearson's correlation coefficient**, but you should know that there are other methods out there! We almost always represent correlation coefficients with the term **r** (note that it's lower case!).
+I'm going to assume most of you have heard of correlation's before, so I won't spend a lot of time motivating this one. Generally a correlation measures the strength of the relationship between two variables, ie, when X gets larger does Y consistently get larger? Smaller? We measure the strength of that relationship using correlation coefficient, for this we'll focus on one specifically called **Pearson's correlation coefficient**, but you should know that there are other methods out there! We almost always represent correlation coefficients with the term **r** (note that it's lower case!).
 
 We calculate r as follows: $$r=\frac{\sum{xy}}{\sqrt{\sum{x^2}\sum{y^2}}}$$
 
@@ -890,11 +892,11 @@ Where an r of 1 means there's a perfect positive correlation (when x increases, 
 ### it's Cool to be Cautious when Calculating Correlations
 
 There are a few things to be careful of when you're calculating and using correlations! 
-First off remember, a correlation DOES NOT IMPLY CAUSATION! This just means that just because two things have a high r value, does not mean that one causes the other! A classic example is that drownings are tightly correlated with ice cream consumption per capita every year, but only because more people are around water and eating ice cream durring the summer! There are some great sights for this, for example the web site https://www.tylervigen.com/spurious-correlations points out that there's an omminous r of 0.666 between drownings by falling into a pool in a year with the number of films Nick Cage has appeard in that year. It's possible that it's people staring at tvs, distracted while walking next to their pool thinking "is that Nick Cage?", but it's more likely what's called a spurious correlation, meaning there's no real relationship between the two variables. Make sure that you never assume causation for a correlation, and make sure the ones you believe make some sense!  
+First off remember, a correlation DOES NOT IMPLY CAUSATION! This just means that just because two things have a high r value, does not mean that one causes the other! A classic example is that drownings are tightly correlated with ice cream consumption per capita every year, but only because more people are around water and eating ice cream during the summer! There are some great sights for this, for example the web site https://www.tylervigen.com/spurious-correlations points out that there's an omminous r of 0.666 between drownings by falling into a pool in a year with the number of films Nick Cage has appeared in that year. It's possible that it's people staring at TVs, distracted while walking next to their pool thinking "is that Nick Cage?", but it's more likely what's called a spurious correlation, meaning there's no real relationship between the two variables. Make sure that you never assume causation for a correlation, and make sure the ones you believe make some sense!  
 
 Another factor to be cautious of when calculating correlations is that all correlations with the methods we're using are linear correlations. While this does not sound super important, you might be fitting a relationship that doesn't make sense to your data, and drawing the wrong conclusions from it! Always look at your data! Plot it! Stare at it!  
 
-Finally, related to the above point, a correlation driven by an outlier is quantitatively the same as a correlation driven by a real relationship, always look for outlier (points way outside the rest of your data, or points that just don't make any sense) before you run a correlation. Just to reitterate - Always look at your data! Plot it! Stare at it!  
+Finally, related to the above point, a correlation driven by an outline is quantitatively the same as a correlation driven by a real relationship, always look for outline (points way outside the rest of your data, or points that just don't make any sense) before you run a correlation. Just to reiterate - Always look at your data! Plot it! Stare at it!  
 
 Now let's get back to that sweet sweet iris data! Let's look for a correlation between sepal length and sepal width. It seems like longer petals could be wider, as they might just be larger overall, but let's take a closer look!
 
@@ -906,7 +908,7 @@ plot(iris$Sepal.Length, iris$Sepal.Width)
 
 ![](Introduction_to_stats_files/figure-html/unnamed-chunk-16-1.png)<!-- -->
 
-First it's important to note that we don't see any obvious outliers, or clear non-linear relationships. Then it's interesting to note, there isn't an obvious, strong relationship, so if we do get a high r value we know something is up we're not seeing.  
+First it's important to note that we don't see any obvious outlines, or clear non-linear relationships. Then it's interesting to note, there isn't an obvious, strong relationship, so if we do get a high r value we know something is up we're not seeing.  
 
 Also note, we can run a simple correlation to just get an r value, or we can run a correlation test, which will also list off degrees of freedom and a significance value. Both the r and the significance value are useful so I would recommend using the "cor.test" function over the simple cor function.
 
@@ -944,16 +946,65 @@ As usual, move back to the lab 1 notebook and come back when you've worked throu
 
 ## Regression
 
-Regressions are really similar to correlations, but with one important difference, a regression does imply a causitive relationship, because we are actively fitting our dependent variable as a function of our independent variable. This is super helpful when you have a clear relationship in mind, but note you're still driving, if you put in a relationship that doen't actually make any sense, but a regression fits, you'll get a meaningless significant result!  
+Regressions are really similar to correlations, but with one important difference, a regression does imply a causative relationship, because we are actively fitting our dependent variable as a function of our independent variable. This is super helpful when you have a clear relationship in mind, but note you're still driving, if you put in a relationship that doesn't actually make any sense, but a regression fits, you'll get a meaningless significant result!  
 
-For this lab we're going to focus on linear regressions, but note that just about any relationship you can have between two mathematical variables you can fit as a regression (exponential, logistic, logarithmic, trigonometic, etc.), like ANOVAs there are entire courses on regression, so there's lots you can dive into if you get excited about them!  
+For this lab we're going to focus on linear regressions, but note that just about any relationship you can have between two mathematical variables you can fit as a regression (exponential, logistic, logarithmic, trigonometric, etc.), like ANOVAs there are entire courses on regression, so there's lots you can dive into if you get excited about them!  
 
 The form of linear regression is as follows: $$Y = a + bX + \epsilon$$  
-where Y is our dependent variable, a and b are our regression coefficients (what we're looking to find), X is our independent variable, and $\epsilon$ is our residual error, or just anything not accounted for by our regression coeffecients.  
+where Y is our dependent variable, a and b are our regression coefficients (what we're looking to find), X is our independent variable, and $\epsilon$ is our residual error, or just anything not accounted for by our regression coefficients.  
 
-We won't get into the details of how the computer actually calculates a and b, but if you're interested it's generally in the field of machine learning, offten with a technique called gradient decent. All you need to know is that the computer finds an a and b the minimizes the squared distance of data points from the regression line.  
+We won't get into the details of how the computer actually calculates a and b, but if you're interested it's generally in the field of machine learning, often with a technique called gradient decent. All you need to know is that the computer finds an a and b the minimizes the squared distance of data points from the regression line.  
 
-With regressions we use a value called $R^2$ to undertand how good the fit of our relationship to our data is, which is called the coefficient of variation. $R^2$ represents the propotion of variation in Y explained by the regression, so it varries from 0 to 1.  
+With regressions we use a value called $R^2$ to understand how good the fit of our relationship to our data is, which is called the coefficient of variation. $R^2$ represents the proportion of variation in Y explained by the regression, so it varies from 0 to 1.  
 
-Note that in a simple linear regression $R^2$ is the same as the pearson correlation coefficient (r) squared, but that this is a special case and you should always make sure that you're using the appropriate test, and the appropriate terms. This will make life much easier when some day you need to model more complex relationships!
+Note that in a simple linear regression $R^2$ is the same as the Pearson correlation coefficient (r) squared, but that this is a special case and you should always make sure that you're using the appropriate test, and the appropriate terms. This will make life much easier when some day you need to model more complex relationships!
 
+It's also useful to note the null and alternative hypotheses of a regression. $H_0$ just states that b=0 (the line is flat, there is no meaningful relationship), whereas $H_A$ is that the line is not flat, b does not equal 0.  
+
+Finally, before we get into our last (!!!) statistical example for this lab, a word of warning. A regression will give you an equation that you could, in theory use with whatever values you want, which seems really useful! But always be cautious using that relationship to make estimates outside the range of the data you collected. The relationship may be different for values much larger or smaller than yours, so always be careful making big assumptions!  
+
+Now lets dive into a data set built into R that should be good for this course! We'll look at the "trees" data set, which gives data on the dimensions of 31 felled black cherry trees. Let's say our alternative hypothesis is that taller trees have a larger volume, with the null hypothesis being that height has no effect on volume.
+
+
+```r
+#First lets read in, and look at our data to make sure we don't have any crazy outliers, or obvious non-linear relationships
+data(trees)
+plot(trees$Height, trees$Volume)
+```
+
+![](Introduction_to_stats_files/figure-html/unnamed-chunk-18-1.png)<!-- -->
+So we see above that there are no obvious outlines or clear non-linear relationships, so lets go ahead a fit a simple regression to our data.  
+
+To fit a regression to data in r we actually fit something called a linear model with the function lm. Like with our ANOVA, we need to assign our model to a variable to then summarize it.
+
+```r
+model <- lm(formula = Volume ~ Height, data=trees)
+summary(model)
+```
+
+```
+## 
+## Call:
+## lm(formula = Volume ~ Height, data = trees)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -21.274  -9.894  -2.894  12.068  29.852 
+## 
+## Coefficients:
+##             Estimate Std. Error t value Pr(>|t|)    
+## (Intercept) -87.1236    29.2731  -2.976 0.005835 ** 
+## Height        1.5433     0.3839   4.021 0.000378 ***
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 13.4 on 29 degrees of freedom
+## Multiple R-squared:  0.3579,	Adjusted R-squared:  0.3358 
+## F-statistic: 16.16 on 1 and 29 DF,  p-value: 0.0003784
+```
+
+Again here we get a lot of information, but what's really important for our purposes is in the last two rows, our R^2 value and significance. We see that we have an R^2 above 0, and a p value bellow 0.05, so there is in fact a significant relationship between height and volume! Which makes sense! Go team!  
+
+I hope this has all be informative, and will be going forward as we work with data throughout this course! If you have any questions let me (Alex) know so I can clarify them!  
+
+Now go ahead back to the lab 1 file and finish up with the regression section! See you all next week!

@@ -9,11 +9,25 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+THIS LAB GOES WITH THE INTROCUTION TO STATS FILE THAT IS AVAILABLE, MAKE SURE YOU READ THROUGH THAT AS YOU WORK THROUGH THIS LAB, START THERE!
+
+Before we start, here's a note on the structure of this lab and how I'll be grading it!
+
+I won't be grading you on your code, but there are questions throughout the lab that you will need the output of your code to answer that will be numbered and between two lines (shown bellow), keep your answer between these as well so that I can easily see where they are to grade! Additionally, if there's no code in a chunk you won't get points for answers stemming from that section so make sure to really work through each step!
+
+---------------------------------------------------------------------------
+example question
+
+your answer would be here!
+---------------------------------------------------------------------------
+
+Each question is worth two points, one for just answering it (sort-of a point for writing the code and looking at the result), and another point for a correct or logical answer, depending on the question!
+
 # Descriptive statistics with iris
 
-Bellow, I'll pull out data on all indiviauls of the species Iris setosa, and assign them to the data frame setosa (a data frame is one way R stores data, think of it like a spreadsheet, but instead of clicking on columns, we use the $ to tell R what column we want to look at).  
+Bellow, I'll pull out data on all individuals of one species of Iris setosa, and assign them to the data frame setosa (a data frame is one way R stores data, think of it like a spreadsheet, but instead of clicking on columns, we use the $ to tell R what column we want to look at).  
 
-Note that there are two easy ways to run a chunk of code in R, first, you can click the green arrow in the top right corner of the chunk of code. The other option, and the one I use more offten, is that if you've clicked within the code cell (between ```{r} and ```) then you can press ctrl + enter and the entire chunk will run!
+Note that there are two easy ways to run a chunk of code in R, first, you can click the green arrow in the top right corner of the chunk of code. The other option, and the one I use more often, is that if you've clicked within the code cell (between ```{r} and ```) then you can press Ctrl + enter and the entire chunk will run!
 ```{r dataDevisionExample}
 #first we read in the iris data set, as shown before
 data("iris")
@@ -51,12 +65,15 @@ Now let's get an idea of what the data for each species looks like in a histogra
 
 ```
 
-In the space bellow answer, do the distributions of each species sepal widths look the same? If not, describe qualitatively what the differences are between them (both centrality and dispersion).
+---------------------------------------------------------------------------
+
+1.In the space bellow answer, do the distributions of each species sepal widths look the same? If not, describe qualitatively what the differences are between them (both centrality and dispersion).
 
 
 
+---------------------------------------------------------------------------
 
-Now let's get a more quantiative idea of how these species compare, in the code chunks bellow calculate the following for the species corrosponding to the chunk title,
+Now let's get a more quantitative idea of how these species compare, in the code chunks bellow calculate the following for the species corresponding to the chunk title,
 *mean
 *median
 *range
@@ -64,7 +81,7 @@ Now let's get a more quantiative idea of how these species compare, in the code 
 *standard deviation
 
 For one of the species, also draw a histogram with vertical lines at the mean, and median sepal width, make sure to include a title! 
-For an example of how to draw multiple vertical lines in a plot, check out the sdDemonstration code chunk in the introduction file
+For an example of how to draw multiple vertical lines in a plot, check out the sd demonstration code chunk in the introduction file
 
 ```{r setosa}
 #mean
@@ -112,22 +129,219 @@ For an example of how to draw multiple vertical lines in a plot, check out the s
 ```
 
 Fill in the following,
+---------------------------------------------------------------------------
+2. Species with the largest average sepal width:  
+3. Species with the largest range in sepal width:  
+4. Species with the most skew (largest difference between mean and median):  
 
-Species with the largest average sepal width:  
-Species with the largest range in sepal width:  
-Species with the most skew (largest difference between mean and median):  
+5. Finally, do the results of these comparisons align with the conclusions you visual inspection of the histograms of each species? If not, what did you get right? Wrong? If so, feel free to just say yes!  
 
-Finally, do the results of these comparisons align with the conclusions you visual inspecition of the histograms of each species? If not, what did you get right? Wrong? If so, feel free to just say yes!  
-
-
+---------------------------------------------------------------------------
 An important note about these results is that we can tell what the differences between these species are based on these statistics, but what they don't tell us is, how meaningful are these differences? Is thee a real difference in sepal width between these species, or did we just happen to randomly select individuals with different distributions? This is whee inferential statistics come in! Go back to the introduction to statistics file, and read up on how to rigorously ask these questions!
 
 # Inferential statistics
 
 ## t-tests
-We're now going to depart from our classic iris data set, and start to read data in from files ourside R. To do this we'll emply a function called read.csv, which reads a comma sepperated value file, which is basically an excel file, but in plain text with commas between values.
+We're now going to depart from our classic iris data set, and start to read data in from files outside R. To do this we'll employ one of two options, although I strongly suggest the first.  
 
-```{r}
-read.cs
+Our first option is a function called read.csv, which reads a comma separated value file, which is basically an excel file, but in plain text with commas between values. This function is useful because it makes it obvious the file your using, and lets others see the file you're using. The only downside is that you've got to know the file path of the file you're using. to use read.csv, we put what's called the path to the file between quotes in the parentheses. This will also be easier if you're using a file in the same folder as the notebook you're working in to keep track of where you're at.  
+
+If you're not sure exactly where a file is, or how to enter a file path (again I would recommend learning to do this! there are lots of very accessible resources online!), then in R studio you can also manually select the file you're interested in importing. To do this, go to the "Environment" panel in the top right of the program and select "import data set". To read in a CSV, select "From text (base)" and follow the directions there.
+
+Whatever your method of choice to read data in is, go ahead and import the data set in the file titled "insects_collected.csv". Note that there are no spaces in the file name, or column names in the file itself, this is to avoid untold pain and suffering typing spaces in variable names (all spaces need a backslash in front of them, so it's just a lot less readable), NEVER PUT SPACES IN VARIABLE NAME OR FILE NAMES.  
+
+Here we've got data on two sites, and the number of insects collected at a number of traps at each site. In the space bellow, read in your data (if you're using read.csv), and calculate the mean and standard deviation of each column (you will have to look at the file, or the data frame you read the file into to get column names!). 
+```{r t_test_setup}
+#read in data
+
+#means
+
+
+#standard deviations
+
+
+```
+---------------------------------------------------------------------------
+6. BRIEFLY in the space bellow, looking at the means and standard deviations, do you think there will be a significant difference between the insect counts at the two sites?
+
+
+----------------------------------------------------------------------------
+After answering the question bellow, run the appropriate t-test in the next code chunk between the two columns in the file assuming you don't have a strong reason to believe one site will have more insects.
+---------------------------------------------------------------------------
+7.What is your null hypothesis?
+8.What is your alternative hypothesis?
+---------------------------------------------------------------------------
+```{r t_test}
+#t test here!
+
+```
+---------------------------------------------------------------------------
+9. Does your result agree with your above prediction?
+10. Before moving on, type out what you think the results of your t-test mean.
+
+---------------------------------------------------------------------------
+Now head back to the introduction to stats and learn about ANOVAs!
+
+## Anova
+
+For our ANOVA, we'll be using data on crop yield grown in three different soil types (sand, clay, and loam). 
+
+Before we get started, if we are running an ANOVA to test with soil as our independent variable, and yield as our dependent variable, what are the following:
+----------------------------------------------------------------------------
+10. Our null hypothesis:
+11. Our alternative hypothesis:
+
+12. The biological interpretation if our data supports our null hypothesis:
+
+
+13. The biological interpretation if our data supports our alternative hypothesis:
+
+--------------------------------------------------------------------------------
+
+It can seem excessive to think through all of this before we even run a test, but take it from someone who's run lots of tests then spent hours to months trying to figure out what my results meant, it's always a great idea to think through possible outcomes BEFORE you run a statistical test!
+
+In the chunk bellow, read in the data in the file called "yield_soil_type.csv", and plot yield colored by soil type like we did for our iris data (note, you don't need lines for means here!).  
+
+```{r anova_setup}
+#read in data
+
+#and plot
+
+
 ```
 
+Finally, run the anova described above, and print out the summary of the results
+
+```{r anova}
+#anova
+
+#summary
+```
+---------------------------------------------------------------------------
+14. Do your results support your null or alternative hypothesis?
+
+
+15. Do you think your results represent what you see in your plot? Explain your answer.
+
+
+16. What is the biological meaning of your results? Remember this just has to make sense with the information you have!
+
+---------------------------------------------------------------------------
+Great job! Now head back to the intro to stats to learn about chi-squared tests!
+
+## Chi-Squared
+
+At this point, you know the drill! In the file titled parasite_load.csv, you'll find counts of individuals (let's say bats, because there's not documentation on the species, always document your data!) grouped by their continent of origin, along with categories of parasite load (0, <=4, >4).  
+
+---------------------------------------------------------------------------
+17,18. Bellow write out the null and alternative hypotheses for a chi squared test on this data set, think about which variable is predictive and which is dependent!  
+
+
+---------------------------------------------------------------------------
+In the first code chunk, read in the data file, and use the code from the introduction lab to calculate the expected number of individuals from Europe with less than or equal to 4 parasites. Make sure R prints this value out!
+
+```{r chi_squared_setup}
+#read in data
+
+#expectation
+
+```
+
+---------------------------------------------------------------------------
+19. Is the expected value R gave you close to the actual value in the data set? How far apart are they? What do you think this means?  
+
+
+---------------------------------------------------------------------------
+Finally, run a chi-squared test on this data set.
+```{r chi_squared_test}
+#chi squared test goes here!
+
+```
+
+---------------------------------------------------------------------------
+20. What does your result mean biologically (again, very broad, you don't have to know anything about bats and their parasites!)?
+
+---------------------------------------------------------------------------
+Head back to the introduction file and come back when you're properly stoked to run some correlations! Or just ready! But hopefully stoked!
+
+## Correlation
+There's been a lot to take in for this lab, but you're almost done! Just two more tests to go! Great job!  
+
+To study correlations we're going to look at a data set on eruptions of the geyser Old Faithful, consisting of eruption magnitudes, along with the time between the measured eruption and the one prior to it. These are in the file titled "eruptions_wait_time.csv".  
+
+---------------------------------------------------------------------------
+20-24. In the space bellow, specify the null and alternative hypotheses for a correlation test on these data, as well as an interpretation if each is true.  
+
+
+
+---------------------------------------------------------------------------
+Now go ahead and read in the data and plot it to make sure we're not seeing a strange relationship and that there are no outliers that might drive a correlation that isn't representative of the data as a whole.
+
+```{r cor_setup}
+#read in data
+
+#plot it
+
+
+```
+
+Based on your plot, do you think our data is more likely to support the null or alternative hypothesis? You don't have to type out an answer here, but it's always good to have some idea what you're expecting based on your data, so that if your result is wildly different or has a different direction from what you're seeing you know to check your work and probe a bit deeper!  
+
+Now go ahead and run the correlation test.
+```{r cor_run}
+#test here!
+
+```
+
+---------------------------------------------------------------------------
+25. Briefly interpret your results bellow, what might this result mean? PS. don't go do a bunch of research about geysers! all we want to see is that you can think through a statistic and come up with some logic that makes sense, it doesn't have to be correct geologically!
+
+---------------------------------------------------------------------------
+Last topic incoming! Go read about regressions and come back refreshed and ready to rock and regress! (nailed it) (like rock and roll)
+
+## Regression
+
+Congratulations! You've made it this far, you're ready to take on the world! After this one more short set of exercises!  
+
+Here we're going to be looking at data on the physical proportions of alligators, comparing their snout vent length and weights. You'll find this data in the file titled "svl_weight.csv". I won't have you write out your hypotheses and interpretations at this point, but think through them now as you will be interpreting your results bellow as usual!  
+
+Let's start out, as we did for correlations, by reading in our data and plotting it on the x and y axes.
+```{r reg_setup}
+#read in data
+
+#plot it
+
+```
+
+The keen eye's among you may have noticed that these columns aren't actually just titled svl and weight, but ln(svl) and ln(weight), this is because on their own the data have a clearly non-normal distribution. By taking the natural log of both variables we can normalize our data, making it possible to use standard statistical tools on it. This is a topic that will likely come up in some of your data down the road so it's worth noting as a method!
+
+With that out of the way, go ahead and run a regression on this data, and answer the questions that follow.
+
+```{r reg_run}
+#regression
+
+
+#regression summary
+
+```
+---------------------------------------------------------------------------
+26. What do the results of this test mean?
+
+
+27. Is the relationship provided by this regression good for predicting the weight of alligators with an ln(svl) of 3.8? How about alligators with an ln(SVL) of 2? or 5? Why or why not?
+
+28 What's the difference between the relationship we get from a regression and those we get from a correlation?
+
+---------------------------------------------------------------------------
+Finally, just a couple servery style questions. (not graded but please fill them out!)
+
+---------------------------------------------------------------------------
+What would you like to know more about in stats? No promises but if lots of students are interested in a given topic we may be able to work it into future labs!  
+
+
+Did you find this level of detail in the introduction notebook and activities sufficient to feel like you've learned about the presented topics? If not, where would you like to see more?
+
+
+And that's all folks! If you absolutely loved what you saw here, there's so much out there about stats in R that you can have a blast with! I'd recommend starting to learn ggplot, as it's a fairly ubiquitous tool we'll touch on throughout the semester I'm sure! But that's completely optional! For now you've done it! Have a great day and see you soon!
+
+---------------------------------------------------------------------------
