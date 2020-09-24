@@ -1,0 +1,180 @@
+---
+title: "stats_homework_372"
+author: "Alex Riley"
+date: "8/24/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Welcome back! At this point you're hopefully feeling pretty comfortable with the basic stats concepts we've previously covered, and are feeling ready to take on a real data set!  
+
+In this lab you'll be looking at data from an actual set of publications (from Boag and Grant (1984) and Grant (1986)) on Darwin's finches, and using it to draw real conclusions about a variety of ecological processes, so get excited!
+
+Also note, this lab is broken into four manageable chunks that use three different data sets, so make sure you're using the right file for each part! 
+
+## The Premise
+
+Galapagos ground finches of the genus Geospiza have fascinated biologists ever since Charles Darwin collected these little birds. He speculated that all species of finches on these islands derived from a single species that was blown onto this group of islands long ago and diversified into a multitude of species, each with unique bill shapes. When biologists went back to the islands and took a closer look at these finch species, it appeared as though populations of the same species occurring on different islands varied slightly in their bill morphology.  
+
+A bird’s beak represents a toolkit that is invaluable for the manipulation of objects in a bird’s life, especially when it comes to food items. Most finches are seed eaters, and their bills are generally stout and powerful, much designed like a nutcracker. It thus is not far-fetched to put forward a hypothesis that the variation in beak size (in this case measured as the depth of the beak) of Galapagos ground finches is related to local variation in the seed sources. It is well documented that ground finches of the genus Geospiza with small beak sizes are unable to crack the largest seed types found on the Galapagos Islands. It is assumed that conversely finches with large beaks are less efficient at handling small seeds, and are at an energetic disadvantage to small-beaked finches, probably largely as a result of longer seed-handling time, when restricted to very small seed types.  
+
+An unforeseen event, fortuitous in understanding these relationships, but a catastrophe for the Galapagos finch populations, occurred in 1977. A large drought in that year caused an almost complete crop failure of seed producing shrubs. Scientists measuring various attributes of finch populations on Daphne Island of the Galapagos recorded a precipitous decline in population size.  
+
+Let's get into the data and use what we've got to understand the impact of this massive event!
+
+## Part 1
+
+First let's dive into some data on the population size of the *Geospiza* species found on Daphne Island (*G. fortis*), as well as data collected on seed abundance in terms of mass per unit area ($m^2$) at the same time. This data is in the file titled "hmw_data_1.csv".
+
+In this code chunk just read in the data set, assign it to a variable and have a look to see what the columns are so you know what you're looking at.
+
+```{r read.in.data.1}
+#red in data
+
+```
+
+----------------------------------------------------------------
+1) (1pt) What statistical test would you use to test the researcher's hypothesis that reduced seed availability following the 1977 drought led to the die back in the local finch population? Why?
+
+2) (1pt) Which is the independent variable? Dependent? Are these categorical, discrete, or continuous?
+
+3) (1pt) Using the information from 1 and 2, what is the null hypothesis of the test you're about to run?
+
+----------------------------------------------------------------
+
+Now run the test you think is best to assess the hypothesis detailed above. Make sure the output of your code gives full details on the output of the test you're running!
+
+```{r run.test.1}
+#run your test here
+
+```
+
+----------------------------------------------------------------
+4) (2pts) What is the conclusion of the test you ran? What's the biological conclusion?
+
+----------------------------------------------------------------
+
+## Part 2
+
+This event allowed the researchers a glimpse of underlying causes of the observed beak size variations in Geospiza. An event leading to food shortages of sufficient magnitude to result in a precipitous population decline is likely to lead to intense competition for the limited food resources. It is likely that the decline in seed resources led to the near depletion of seeds that this species is equipped to crack open early during the famine. If this is true, we might suspect that birds better able to manipulate difficult to access seeds stood a better chance at surviving the famine of 1977, something that might be reflected in their beak shapes or sizes.  
+Now import the next data set in "hmw_data_2.csv", which gives beak depth measurements taken on finches both before (1976), and after (1978) the drought event. 
+
+```{r read.in.data.2}
+#read in your data here!
+
+```
+
+Let's get a good look at our data before we start to mess with it. There's a particularly great type of plot to look at the distribution of a continuous variable in multiple groups called a box plot. A box plot shows us horizontal lines next to each other where the mean of each group is, and around those we see boxes representing the edges of the 2nd and 3rd quartiles (basically a box showing where the 50% of the data closest to the mean is and how it's distributed), along with lines representing where the lesser of either the farthest outlier is, or some multiplier of the quartile grouping. If there are outliers outside these lines they're represented as dots. These plots can be strange to look at (and even stranger to describe) at first, so check out the section under "what is a box plot" on this page https://towardsdatascience.com/understanding-boxplots-5e2df7bcbd51. 
+
+The way we generate a box plot in R is actually really straight forward, just type "boxplot(dataset)" and it should appear, try that bellow.
+
+```{r boxplot}
+#use the function boxplot to plot a boxplot of our second data set
+
+```
+
+
+----------------------------------------------------------------
+5) (1pt) Based on your bloxplot, are the groups identical in the distribution of beak depth? Which group, if either, is more skewed? (if you're having trouble getting this from a boxplot, feel free to also plot histograms of each column)
+
+6) (1pt) Which statistical test is appropriate to test whether there are significant differences in beak depth in this population of finches prior to and following the drought?
+
+----------------------------------------------------------------
+
+Now that you've got a test in mind, along with some idea of what you might find, go ahead and run that test bellow!
+
+```{r run.test.2}
+#run your test here!
+
+```
+
+----------------------------------------------------------------
+7) (2pts) What's your conclusion based on the above test?
+
+8) (3pts) If we assume the alternative hypothesis from 6 is true, what would that imply about the distribution of seeds available during a drought year based on what you see in your plot(s) from 5? In one or two sentences, how might you go about testing this further (with a new experiment)?
+
+----------------------------------------------------------------
+
+## Part 3
+
+The researchers on Daphne Island carefully studied the dietary preferences of this population of G. fortis. Observations were made in 1976 (prior to the onset of the drought), 1977 (during the drought), and 1978 (following the drought). Every time a G. fortis individual was observed feeding on a seed, its choice of seed was tallied with respect to seed hardness classes. We can use this dataset to test whether G. fortis showed differences in the type of seed it predominantly fed on between the three years.  
+
+Go ahead and read in the data in hmw_data_3.csv bellow.
+
+```{r read.in.data.3}
+#read in your data here
+
+```
+
+----------------------------------------------------------------
+9) (1pt) What test would you use if your Ho is that feeding preference was independent of the year it was observed in; in other words, that feeding preference did not change significantly between the three years?
+
+
+Run that test bellow!
+----------------------------------------------------------------
+
+```{r run.test.3}
+#run your test here
+
+```
+----------------------------------------------------------------
+10) (2pts) In what direction did seed preference change, if at all? Interpret the results of this question, along with the test your an above in the space bellow. (also as a tip, think a bit about the untested question from 8)
+
+
+----------------------------------------------------------------
+
+## Part 4
+
+Our analyses of data on beak-depth variation in Geospiza fortis on the island of Daphne has given support to the assumption that beak-size variation is related to the types of seeds consumed. Our results have focused only on a single species. What might happen in terms of beak morphology, if G. fortis co-occurs with a second, closely related species of similar ecological preference (i.e. also a predator of seeds)? This scenario in fact occurs naturally on other islands in the Galapagos, where G. fortis naturally co-occurs with G. fuliginosa, a species with a slightly smaller beak size, on average. Two of the islands sustain both populations of G. fortis and of G. fuliginosa (Pinta and San Cristobal), while the other two islands only sustain one of each species (G. fortis on Daphne and G. fuliginosa on Los Hermanos).  
+
+----------------------------------------------------------------
+11) (1pt) Given the scenario described above, come up with a hypothesis in terms of expected changes in beak-depth of both species on islands where both co-occur, compared to islands hosting only one or the other.
+
+----------------------------------------------------------------
+
+Go ahead and read in the data in hmw_data_4.csv and get excited to answer some more questions!
+
+```{r read.in.data.4}
+#read in data here
+
+```
+
+----------------------------------------------------------------
+12) (1pt) Which statistical test is appropriate to determine if there are differences in the means among the populations, and why? Are there any special things you should consider factoring in? Interactions perhaps?
+
+----------------------------------------------------------------
+
+Run the test described above and make sure your output is complete!
+
+```{r run.test.4}
+#run the test described above!
+
+```
+
+----------------------------------------------------------------
+13) (2pts) Interpret your results from the above test.
+
+----------------------------------------------------------------
+
+Now remember WAY back to when we split up our iris data at the beginning of lab 1. Bellow split up your finch data by species, and plot data on each species colored based on their island of origin.
+
+```{r plots.by.species}
+#split up data
+
+
+#plot it
+
+
+```
+
+----------------------------------------------------------------
+14) (3pts) Examine your plots, compare the patterns seen on islands where the finches co-occur with those where they don't, compare both within and between species. Do you notice any sort of pattern of variation in beak size? How does this pattern (or lack thereof!) compare to your initial hypothesis?
+
+----------------------------------------------------------------
+
+Yay! done with all those pesky stats! For practice putting together something you're ready to send to folks, "Knit" this document to an html file (press the button titled "Knit" at the top of this section of R Studio) and submit that html file, titled lastName_FirstName_hmw1.html on moodle! Note, the html file should be in the same file as where you've saved this notebook!  
+
+Great job!

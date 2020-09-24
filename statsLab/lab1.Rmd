@@ -204,7 +204,7 @@ In the chunk bellow, read in the data in the file called "yield_soil_type.csv", 
 
 ```{r anova_setup}
 #read in data
-
+read.csv("yeild_soil_type.csv", stringsAsFactors = TRUE)
 #and plot
 
 
