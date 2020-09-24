@@ -1,0 +1,16 @@
+---
+title: "Phylogenetics labs"
+author: "Alex Riley"
+date: "9/24/2020"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+make tree with charecter matrix
+download sequences for relevant strains
+make trees!
+
+Covid data question
